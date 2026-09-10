@@ -1,0 +1,5 @@
+.DS_Store
+.venv/
+scratch/
+*.log
+__pycache__/

@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coin Master: Hybrid Offline Architecture | Executive Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070b13;
+      --bg-card: rgba(15, 23, 42, 0.75);
+      --bg-card-border: rgba(56, 189, 248, 0.2);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-sub: #cbd5e1;
+      --gold: #f59e0b;
+      --gold-light: #fbbf24;
+      --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+      --cyan: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.35);
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.3);
+      --rose: #f43f5e;
+      --purple: #a855f7;
+      --slide-width: 1920px;
+      --slide-height: 1080px;
+      --font-body: 'Assistant', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-title: 'Outfit', 'Assistant', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Background Atmospheric Glow */
+    .ambient-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(56, 189, 248, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+    }
+
+    /* Top Progress Bar */
+    .progress-bar-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 100;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 8.33%;
+      background: var(--gold-gradient);
+      box-shadow: 0 0 15px var(--gold);
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Header Bar */
+    .deck-header {
+      position: fixed;
+      top: 15px;
+      left: 30px;
+      right: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 90;
+      pointer-events: none;
+    }
+
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--bg-card-border);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    .brand-logo {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 16px;
+      letter-spacing: 1px;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+    }
+
+    .brand-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .brand-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .deck-controls {
+      display: flex;
+      gap: 10px;
+      pointer-events: auto;
+    }
+
+    .ctrl-btn {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--bg-card-border);
+      color: var(--text-sub);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .ctrl-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--cyan);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .ctrl-btn kbd {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-family: monospace;
+      color: var(--cyan);
+    }
+
+    /* Presentation Viewport */
+    .viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      padding: 60px 40px 40px;
+    }
+
+    /* Slide Frame (Aspect Ratio 16:9) */
+    .slides-container {
+      position: relative;
+      width: 100%;
+      max-width: 1600px;
+      height: 100%;
+      max-height: 900px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 50px 60px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.97) translateY(15px);
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 25px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 18px;
+    }
+
+    .slide-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+    }
+
+    .slide-title {
+      font-family: var(--font-title);
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #ffffff;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    .slide-num {
+      font-family: var(--font-title);
+      font-size: 28px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.25);
+      letter-spacing: 1px;
+    }
+
+    /* Slide Body Grid Layouts */
+    .slide-body {
+      flex: 1;
+      display: grid;
+      gap: 24px;
+      min-height: 0;
+    }
+
+    .grid-2col {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+
+    .grid-3col {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+    }
+
+    .grid-4col {
+      grid-template-columns: repeat(4, 1fr);
+      align-items: stretch;
+    }
+
+    .grid-1-2 {
+      grid-template-columns: 1fr 1.6fr;
+      align-items: center;
+    }
+
+    .grid-2-1 {
+      grid-template-columns: 1.6fr 1fr;
+      align-items: center;
+    }
+
+    /* Cards & Components */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(56, 189, 248, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .card-accent-gold {
+      border-top: 4px solid var(--gold);
+    }
+
+    .card-accent-cyan {
+      border-top: 4px solid var(--cyan);
+    }
+
+    .card-accent-emerald {
+      border-top: 4px solid var(--emerald);
+    }
+
+    .card-accent-rose {
+      border-top: 4px solid var(--rose);
+    }
+
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: 2px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* Big Metric Display */
+    .metric-hero {
+      font-family: var(--font-title);
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .metric-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Visual Media Containers */
+    .media-box {
+      width: 100%;
+      height: 100%;
+      max-height: 480px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #020617;
+      position: relative;
+    }
+
+    .media-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .media-box:hover img {
+      transform: scale(1.02);
+    }
+
+    .media-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+      padding: 16px 20px;
+      font-size: 13px;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    /* Lists & Points */
+    .point-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .point-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 16px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .point-badge {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      margin-top: 1px;
+    }
+
+    .point-item b {
+      color: #ffffff;
+    }
+
+    /* Bottom Navigation Bar */
+    .deck-footer {
+      position: fixed;
+      bottom: 15px;
+      left: 30px;
+      right: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 90;
+    }
+
+    .nav-hints {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 16px;
+    }
+
+    .nav-hints span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--bg-card-border);
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-btn:hover {
+      background: var(--gold-gradient);
+      color: #000;
+      border-color: transparent;
+      box-shadow: 0 0 15px var(--gold);
+      transform: scale(1.05);
+    }
+
+    /* Slide Sorter / Overview Modal */
+    .overview-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(7, 11, 19, 0.95);
+      backdrop-filter: blur(25px);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 60px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .overview-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .overview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .overview-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      font-family: var(--font-title);
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      overflow-y: auto;
+      padding-bottom: 40px;
+    }
+
+    .overview-thumb {
+      background: #0f172a;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .overview-thumb:hover, .overview-thumb.active {
+      border-color: var(--gold);
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+    }
+
+    .thumb-num {
+      font-size: 12px;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .thumb-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    /* Speaker Notes Drawer */
+    .speaker-notes-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      background: rgba(15, 23, 42, 0.96);
+      border-top: 2px solid var(--gold);
+      padding: 24px 60px;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+      z-index: 150;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 35vh;
+      overflow-y: auto;
+    }
+
+    .speaker-notes-drawer.open {
+      transform: translateY(0);
+    }
+
+    .notes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 8px;
+    }
+
+    .notes-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .notes-content {
+      font-size: 16px;
+      color: #e2e8f0;
+      line-height: 1.7;
+    }
+
+    /* Table Styles */
+    .deck-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .deck-table th {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--cyan);
+      padding: 12px 16px;
+      font-weight: 700;
+      border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .deck-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-sub);
+    }
+
+    .deck-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Print Styles for PDF Generation */
+    @media print {
+      body {
+        overflow: visible;
+        background: #fff !important;
+        color: #000 !important;
+      }
+
+      .ambient-glow, .progress-bar-container, .deck-header, .deck-footer, .overview-modal, .speaker-notes-drawer {
+        display: none !important;
+      }
+
+      .viewport {
+        padding: 0 !important;
+        height: auto !important;
+        display: block !important;
+      }
+
+      .slides-container {
+        display: block !important;
+        max-width: none !important;
+        max-height: none !important;
+      }
+
+      .slide {
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        page-break-after: always !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: #0f172a !important;
+        color: #fff !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="deck-header">
+    <div class="brand-badge">
+      <span class="brand-logo">MOON ACTIVE</span>
+      <span class="brand-divider"></span>
+      <span class="brand-subtitle">Coin Master • Executive Strategic Pitch</span>
+    </div>
+
+    <div class="deck-controls">
+      <button class="ctrl-btn" id="btnNotes" title="הצג הערות מרצה (מקש N)">
+        🎙️ הערות <kbd>N</kbd>
+      </button>
+      <button class="ctrl-btn" id="btnOverview" title="סקירת כל השקופיות (מקש Esc / O)">
+        🗂️ שקופיות <kbd>O</kbd>
+      </button>
+      <button class="ctrl-btn" id="btnFullscreen" title="מסך מלא (מקש F)">
+        ⛶ מסך מלא <kbd>F</kbd>
+      </button>
+      <button class="ctrl-btn" onclick="window.print()" title="הדפסה ושמירה כ-PDF (Ctrl/Cmd+P)">
+        🖨️ PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- Viewport -->
+  <main class="viewport">
+    <div class="slides-container">
+
+      <!-- SLIDE 1: Title & Strategic Inflection -->
+      <section class="slide active" data-slide="1">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">Executive Strategy Deck • 2026</div>
+            <h1 class="slide-title">Coin Master: Hybrid Offline Architecture</h1>
+            <p class="slide-subtitle">הפיכת 4.2 מיליון שעות ניתוק יומיות למנוע צמיחה, שימור והכנסות בלתי ניתן לעצירה</p>
+          </div>
+          <div class="slide-num">01 / 12</div>
+        </div>
+
+        <div class="slide-body grid-2col">
+          <div class="card card-accent-gold" style="height: 100%; justify-content: center; padding: 40px;">
+            <span class="metric-sub">הזדמנות שוק עולמית</span>
+            <div class="metric-hero">4.2M+ שעות</div>
+            <p class="card-desc" style="font-size: 18px; margin-top: 10px;">
+              בכל יום, שחקני Coin Master ברחבי העולם נתקלים ב"מסך שגיאה אדום" בטיסות, ברכבות תחתיות ובאזורי קליטה חלשה — ונוטשים לאפליקציות מתחרות.
+            </p>
+            <div style="display: flex; gap: 12px; margin-top: 24px;">
+              <div class="stat-pill">✈️ טיסות טרנס-אטלנטיות</div>
+              <div class="stat-pill">🚇 רכבות תחתיות באירופה</div>
+              <div class="stat-pill">📶 שווקי נפח (הודו וברזיל)</div>
+            </div>
+          </div>
+
+          <div class="media-box">
+            <img src="image.png" alt="Coin Master Mobile Overview">
+            <div class="media-caption">החזון המוצרי: משחק רציף ומאובטח בכל מקום בעולם — באוויר, בים וביבשה</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: The Global Reality & Dead-Zone Bleed -->
+      <section class="slide" data-slide="2">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">פילוח שוק ואתגרי קליטה</div>
+            <h2 class="slide-title">התפלגות הורדות עולמית מול שטחי ניתוק רשת</h2>
+            <p class="slide-subtitle">שווקי הנפח הגדולים ביותר של Coin Master סובלים מרשתות סלולר לא יציבות ותנודתיות גבוהה</p>
+          </div>
+          <div class="slide-num">02 / 12</div>
+        </div>
+
+        <div class="slide-body grid-2-1">
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="media-box" style="max-height: 320px;">
+              <img src="image-3.png" alt="Global Network Connectivity Map">
+              <div class="media-caption">מפת אתגרי הרשת הגלובליים: הודו (24%), ברזיל (12%), ארה"ב (10% - טיסות ורכבות)</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+              <div class="card card-accent-cyan">
+                <span class="metric-sub">הודו (Volume Market)</span>
+                <div style="font-size: 28px; font-weight: 800; color: var(--cyan);">24% מההורדות</div>
+                <p class="card-desc">תנודות רשת כבדות במטרופולינים ונסיעות בין-עירוניות.</p>
+              </div>
+              <div class="card card-accent-emerald">
+                <span class="metric-sub">ברזיל (Casual Hub)</span>
+                <div style="font-size: 28px; font-weight: 800; color: var(--emerald);">12% מההורדות</div>
+                <p class="card-desc">אובדן קליטה שכיח בכבישים מהירים ובמרכזי קניות.</p>
+              </div>
+              <div class="card card-accent-gold">
+                <span class="metric-sub">ארה"ב (Top LTV)</span>
+                <div style="font-size: 28px; font-weight: 800; color: var(--gold);">10% הורדות / 60% הכנסות</div>
+                <p class="card-desc">טיסות עסקים ומערכות סאבוויי (NYC/Chicago).</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-accent-rose" style="justify-content: center;">
+            <span class="metric-sub">עלות חוסר הפעולה (Cost of Inaction)</span>
+            <div style="font-size: 32px; font-weight: 800; color: var(--rose); margin: 8px 0;">שבירת ה-Habit Loop</div>
+            <ul class="point-list">
+              <li class="point-item">
+                <div class="point-badge">✕</div>
+                <div><b>נטישה זמנית שהופכת לקבועה:</b> שחקן שאינו יכול לפתוח את המשחק בטיסה פותח משחק מתחרה (Subway Surfers, Candy Crush).</div>
+              </li>
+              <li class="point-item">
+                <div class="point-badge">✕</div>
+                <div><b>תסכול פסיכולוגי:</b> שחקן חושש שהכפר שלו יישדד בזמן שהוא באוויר מבלי יכולת להגן עליו.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: The Competitive Moat Against Monopoly GO! -->
+      <section class="slide" data-slide="3">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">יתרון תחרותי וחפיר אסטרטגי</div>
+            <h2 class="slide-title">החפיר הבלתי-עביר מול Monopoly GO! (Scopely)</h2>
+            <p class="slide-subtitle">מדוע ארכיטקטורת הסלוט של Coin Master מאפשרת לנו מהלך שמתחרים אינם מסוגלים לחקות</p>
+          </div>
+          <div class="slide-num">03 / 12</div>
+        </div>
+
+        <div class="slide-body grid-2col">
+          <div class="card" style="border-color: rgba(244, 63, 94, 0.4);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="card-title" style="color: var(--rose);">Monopoly GO! (Scopely)</span>
+              <span class="stat-pill" style="color: var(--rose);">ארכיטקטורה כבולה לרשת</span>
+            </div>
+            <ul class="point-list" style="margin-top: 14px;">
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--rose); color: var(--rose);">!</div>
+                <div><b>משחק לוח סנכרוני מרובה-משתתפים:</b> כל הטלת קובייה תלויה במצב משבצות בזמן אמת של שחקנים אחרים.</div>
+              </li>
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--rose); color: var(--rose);">!</div>
+                <div><b>אי-אפשרות מעבר לאופליין:</b> דורש תכנון ארכיטקטוני מחדש של מנוע המשחק והכלכלה מהיסוד.</div>
+              </li>
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--rose); color: var(--rose);">!</div>
+                <div><b>נקודת תורפה ברורה:</b> שחקן בטיסה או במנהרה אינו יכול לשחק כלל.</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card card-accent-gold">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="card-title" style="color: var(--gold);">Coin Master (Moon Active)</span>
+              <span class="stat-pill" style="color: var(--emerald);">החפיר האופלייני הבלעדי</span>
+            </div>
+            <ul class="point-list" style="margin-top: 14px;">
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--emerald); color: var(--emerald);">✓</div>
+                <div><b>התאמה טבעית של מנוע הסלוט:</b> סיבוב גלגל ופשיטה ממפים את עצמם באופן מתמטי מושלם להגרלות דטרמיניסטיות חתומות.</div>
+              </li>
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--emerald); color: var(--emerald);">✓</div>
+                <div><b>כפרי רפאים מבודדים (Ghost Villages):</b> תקיפת יריבי דמה מותאמים ללא מנעולי שרת וללא פגיעה בשחקנים חיים.</div>
+              </li>
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--emerald); color: var(--emerald);">✓</div>
+                <div><b>הובלת שוק עולמית:</b> המשחק המוביל היחיד בקטגוריה שזמין 24/7 בכל תנאי סביבה!</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: The 3-Block Plug-and-Play Architecture -->
+      <section class="slide" data-slide="4">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">ארכיטקטורה ופשטות מימוש</div>
+            <h2 class="slide-title">מודל שלושת הבלוקים: פשוט, מודולרי ומאובטח</h2>
+            <p class="slide-subtitle">אינטגרציה נקייה (Plug-and-Play) שאינה דורשת שינויים במנוע המשחק הקיים</p>
+          </div>
+          <div class="slide-num">04 / 12</div>
+        </div>
+
+        <div class="slide-body grid-3col">
+          <div class="card card-accent-cyan">
+            <div class="card-icon">🔐</div>
+            <div class="card-title">בלוק 1: כספת קריפטוגרפית בלקוח</div>
+            <span class="metric-sub">Client Crypto Vault</span>
+            <ul class="point-list" style="font-size: 14px; margin-top: 10px;">
+              <li>• אחסון מקומי מוצפן ב-<b>SQLCipher AES-256</b>.</li>
+              <li>• שרשרת גיבוב בלתי ניתנת לזיוף (<b>Hash-Chain SHA-256</b>).</li>
+              <li>• מפתחות שמורים ב-<b>Secure Enclave / KeyStore</b>.</li>
+              <li>• תוספת זיכרון זניחה: <b>פחות מ-15MB RAM</b>.</li>
+            </ul>
+          </div>
+
+          <div class="card card-accent-gold">
+            <div class="card-icon">🎟️</div>
+            <div class="card-title">בלוק 2: מכסת סשן חתומה מראש</div>
+            <span class="metric-sub">Leased Session Budget</span>
+            <ul class="point-list" style="font-size: 14px; margin-top: 10px;">
+              <li>• טוקן <b>Ed25519 חתום ב-KMS</b> בעת כל חיבור מקוון.</li>
+              <li>• מכסה מדורגת: <b>50 ספינים בסיס (עד 100 ל-VIP)</b>.</li>
+              <li>• תוקף קשיח של <b>12 שעות בלבד</b>.</li>
+              <li>• מגן על הכלכלה מפני יצירת ספינים בלתי מוגבלת.</li>
+            </ul>
+          </div>
+
+          <div class="card card-accent-emerald">
+            <div class="card-icon">⚡</div>
+            <div class="card-title">בלוק 3: מנוע אימות מהיר בשרת</div>
+            <span class="metric-sub">Fast-Forward Replay</span>
+            <ul class="point-list" style="font-size: 14px; margin-top: 10px;">
+              <li>• אימות 100 ספינים תוך <b>פחות מ-4 מילישניות!</b></li>
+              <li>• ריצה בזיכרון מעבד (CPU-only) — <b>אפס שאילתות DB</b>.</li>
+              <li>• קיבולת של <b>15,000 אימותים בשנייה</b>.</li>
+              <li>• מחיקת פעולות כפולות ומניעת Replay Attacks.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: Behavioral Psychology & The In-Flight Shield -->
+      <section class="slide" data-slide="5">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">פסיכולוגיה התנהגותית ושימור הרגלים</div>
+            <h2 class="slide-title">שקט נפשי בטיסות: מנגנון ה-In-Flight Shield</h2>
+            <p class="slide-subtitle">רתימת תורת הערך (Prospect Theory) להפיכת חרדת נטישה לנאמנות מותג עמוקה</p>
+          </div>
+          <div class="slide-num">05 / 12</div>
+        </div>
+
+        <div class="slide-body grid-2col">
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div class="card card-accent-gold">
+              <span class="metric-sub">עקרון פסיכולוגי מוכח</span>
+              <div class="card-title">שנאת הפסד פי 2.5 (Loss Aversion)</div>
+              <p class="card-desc">
+                הכאב הפסיכולוגי מאיבוד 500 מיליון מטבעות עקב שוד בזמן שהשחקן בטיסה חזק <b>פי 2.5</b> מהשמחה של זכייה באותו סכום.
+              </p>
+            </div>
+
+            <div class="card card-accent-cyan">
+              <div class="card-title">מנגנון ההגנה הפסיבי</div>
+              <p class="card-desc">
+                • שחקן שיוצא לאופליין מוגן אוטומטית. ספינים באופליין מאפשרים לו לזכות במגנים חדשים.<br>
+                • בחיבור מחדש: השרת מיישב תקיפות רטרואקטיבית ומפעיל את המגנים שהורווחו בטיסה.<br>
+                • <b>התוצאה:</b> שחקן טס בשקט נפשי מוחלט בידיעה שהכפר שלו מוגן!
+              </p>
+            </div>
+          </div>
+
+          <div class="media-box">
+            <img src="image-2.png" alt="Coin Master In-Flight Shield Visual">
+            <div class="media-caption">מגן הכפר הפסיבי: שחקנים ממשיכים לצבור מגנים ולהגן על הכפר גם ללא אינטרנט</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: Flawless Player UX & Reconnect Climax -->
+      <section class="slide" data-slide="6">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">חוויית משתמש ומיקרו-קופי</div>
+            <h2 class="slide-title">חוויה חלקה: אינדיקטור שקט ושיא סנכרון חגיגי</h2>
+            <p class="slide-subtitle">אפס פופ-אפים אדומים מלחיצים, מיקרו-קופי אמפתי ב-4 שפות, ואפקט פתיחת כספת מתגמל</p>
+          </div>
+          <div class="slide-num">06 / 12</div>
+        </div>
+
+        <div class="slide-body grid-2col">
+          <div class="media-box">
+            <img src="image-1.png" alt="Coin Master UX Flow">
+            <div class="media-caption">מעבר אלגנטי למצב אופליין: באנר שקט "משחק בכספת מנותקת • כל הפרסים שמורים"</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="card card-accent-emerald">
+              <div class="card-title">שיא הדופמין בנחיתה (Vault Celebration)</div>
+              <p class="card-desc">
+                ברגע שהמכשיר מזהה חיבור Wi-Fi או סלולר, מופעלת אנימציית פתיחת כספת (Vault Opening) מרטיטת מכשיר (Haptics), וכל המטבעות, הקלפים וההישגים נשפכים למאזן הכפר בבת אחת.
+              </p>
+            </div>
+
+            <div class="card card-accent-cyan">
+              <div class="card-title">טריגר מונטיזציה מיידי (Monetization Trigger)</div>
+              <p class="card-desc">
+                חגיגת הסנכרון יוצרת נקודת מעורבות שיא (Peak Emotional Moment). מסך הפתיחה מציע חבילת השלמה בלעדית ("Welcome Back Pack") עם המרה של פי 2.2 לעומת הצעות רגילות.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: Game Economy & Anti-Arbitrage Math -->
+      <section class="slide" data-slide="7">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">איזון כלכלי ומניעת רמאויות</div>
+            <h2 class="slide-title">כלל ה-80%: חסם מתמטי מוחלט נגד ניצול לרעה</h2>
+            <p class="slide-subtitle">משחק באופליין מתוכנן כך שהוא תמיד נחות כלכלית ממשחק באונליין — אפס תמריץ לניתוק יזום</p>
+          </div>
+          <div class="slide-num">07 / 12</div>
+        </div>
+
+        <div class="slide-body grid-3col">
+          <div class="card card-accent-gold">
+            <span class="metric-sub">חסם כלכלי 1</span>
+            <div class="card-title">כלל ה-80% בכפרי בוטים</div>
+            <div class="metric-hero" style="font-size: 36px; margin: 8px 0;">C<sub>bot</sub> = 0.80 × C<sub>real</sub></div>
+            <p class="card-desc">
+              מאגרי המטבעות של כפרי הרפאים (NPCs) מוגבלים קשיחה ל-80% משחקן אמיתי. שחקן מרוויח באונליין תמיד כ-25% יותר פר שעה.
+            </p>
+          </div>
+
+          <div class="card card-accent-rose">
+            <span class="metric-sub">חסם כלכלי 2</span>
+            <div class="card-title">חסימת קלפים נדירים</div>
+            <div class="metric-hero" style="font-size: 36px; margin: 8px 0; color: var(--rose);">Zero Jokers</div>
+            <p class="card-desc">
+              סנפשוט האופליין כולל קלפים נפוצים (1–3 כוכבים) בלבד. קלפי זהב, קלפי ג'וקר ומבצעי כפל פרסים מוחרגים לחלוטין.
+            </p>
+          </div>
+
+          <div class="card card-accent-cyan">
+            <span class="metric-sub">חסם כלכלי 3</span>
+            <div class="card-title">הגבלת מכפיל הימור</div>
+            <div class="metric-hero" style="font-size: 36px; margin: 8px 0; color: var(--cyan);">Max ×5 Bet</div>
+            <p class="card-desc">
+              בעוד שבאונליין שחקני עלית יכולים להמר במכפילי ×50 עד ×500, באופליין המכפיל מוגבל קשיחה ל-×5 בלבד למניעת צבירת עתק בלתי מבוקרת.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: Thundering Herd Defense & Scalability -->
+      <section class="slide" data-slide="8">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">ארכיטקטורת ענן ו-SRE</div>
+            <h2 class="slide-title">עמידות נחיתת מטוסים: נטרול Thundering Herd</h2>
+            <p class="slide-subtitle">כאשר מטוס A380 עם 200 שחקני Coin Master נוחת בנמל תעופה — השרת מגיב בעקומה שטוחה ויציבה</p>
+          </div>
+          <div class="slide-num">08 / 12</div>
+        </div>
+
+        <div class="slide-body grid-2col">
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="card card-accent-cyan">
+              <div class="card-title">מנגנון Exponential Backoff with Full Jitter</div>
+              <p class="card-desc">
+                המכשיר אינו תוקף את השרת ברגע שנדלק ה-Wi-Fi. אלגוריתם ה-Jitter מפזר את קריאות ה-Reconcile על פני חלון אקראי של <b>0 עד 120 שניות</b>:
+              </p>
+              <div style="background: rgba(0,0,0,0.4); padding: 10px 14px; border-radius: 8px; font-family: monospace; color: var(--cyan); font-size: 13px;">
+                t_sleep = random(0, min(120, base * 2^attempt))
+              </div>
+            </div>
+
+            <div class="card card-accent-emerald">
+              <div class="card-title">ביצועי שרת מוכחים (SLA Metrics)</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;">
+                <div>
+                  <span class="metric-sub">זמן אימות סשן</span>
+                  <div style="font-size: 26px; font-weight: 800; color: var(--emerald);">p95 < 4ms</div>
+                </div>
+                <div>
+                  <span class="metric-sub">קיבולת אשכול</span>
+                  <div style="font-size: 26px; font-weight: 800; color: var(--cyan);">15k req/sec</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="media-box">
+            <img src="image-4.png" alt="Coin Master Backend Scaling Architecture">
+            <div class="media-caption">זרימת שרתים אופטימלית: Envoy Gateway ➔ Redis ➔ Replay Workers ➔ Kafka Ledger</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: Zero Financial Risk - StoreKit 2 & IAP -->
+      <section class="slide" data-slide="9">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">תאימות חנויות ואפס סיכון כספי</div>
+            <h2 class="slide-title">עקרון הברזל: Zero-Fulfillment-Offline</h2>
+            <p class="slide-subtitle">אפס ספינים מסופקים ללא סליקה מאומתת ב-Apple StoreKit 2 / Google Play — אפס סיכון Chargeback</p>
+          </div>
+          <div class="slide-num">09 / 12</div>
+        </div>
+
+        <div class="slide-body grid-2col">
+          <div class="card card-accent-gold" style="justify-content: center;">
+            <div class="card-title">זרימת הרכישה המושהית (Deferred IAP)</div>
+            <ul class="point-list" style="margin-top: 14px;">
+              <li class="point-item">
+                <div class="point-badge">1</div>
+                <div><b>רישום כוונה בלבד באופליין:</b> שחקן בטיסה בוחר חבילה. האפליקציה מתעדת `Purchase Intent` מקומית בלבד.</div>
+              </li>
+              <li class="point-item">
+                <div class="point-badge">2</div>
+                <div><b>אפס נכסים לפני תשלום:</b> המשאבים נשארים נעולים לחלוטין. אין אספקת ספינים באוויר ללא אישור בנקאי.</div>
+              </li>
+              <li class="point-item">
+                <div class="point-badge">3</div>
+                <div><b>סליקה בנחיתה:</b> בחזרת הרשת, נפתח Native Payment Sheet מול Apple/Google. רק עם קבלת קבלה חתומה (JWS) המשאבים מועברים לחשבון.</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card card-accent-emerald" style="justify-content: center;">
+            <div class="card-title">עמידה מלאה במדיניות החנויות והרגולציה</div>
+            <ul class="point-list" style="margin-top: 14px;">
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--emerald); color: var(--emerald);">✓</div>
+                <div><b>Apple App Store Guideline 3.1.1:</b> עמידה קפדנית בכללי סליקת IAP ללא עקיפת מנגנון התשלום של אפל.</div>
+              </li>
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--emerald); color: var(--emerald);">✓</div>
+                <div><b>חוק השירותים הדיגיטליים (EU DSA):</b> שקיפות הסתברויות מוחלטת ללא מניפולציות אלגוריתמיות.</div>
+              </li>
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--emerald); color: var(--emerald);">✓</div>
+                <div><b>אפס חשיפה לביטולי אשראי (Chargebacks):</b> מכיוון שלא ניתנו נכסים לפני חיוב, לשחקן אין אפשרות לנצל את המערכת.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: Financial Impact & ROI Sensitivity Model -->
+      <section class="slide" data-slide="10">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">מודל כלכלי ותחזית תשואה</div>
+            <h2 class="slide-title">ניתוח פיננסי: החזר השקעה מלא תוך פחות מ-90 יום</h2>
+            <p class="slide-subtitle">השקעה הנדסית של $650K מול תוספת הכנסה שנתית צפויה של מעל $20.7M (Base Case)</p>
+          </div>
+          <div class="slide-num">10 / 12</div>
+        </div>
+
+        <div class="slide-body grid-3col">
+          <div class="card card-accent-cyan">
+            <span class="metric-sub">תרחיש שמרני (Conservative)</span>
+            <div class="metric-hero" style="color: var(--cyan); font-size: 38px;">+$11.2M ARR</div>
+            <div style="font-size: 14px; color: var(--text-muted); margin: 6px 0;">שיפור של +1.0% ב-D7 Retention</div>
+            <ul class="point-list" style="font-size: 13px; margin-top: 10px;">
+              <li>• אימוץ בקרב 8% משחקני טיסות/רכבות.</li>
+              <li>• החזר השקעה מלא: <b>72 ימים</b>.</li>
+              <li>• ROI שנתי: <b>1,720%</b>.</li>
+            </ul>
+          </div>
+
+          <div class="card card-accent-gold" style="border-width: 2px; transform: scale(1.03); box-shadow: 0 10px 40px rgba(245, 158, 11, 0.2);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="metric-sub" style="color: var(--gold);">תרחיש בסיס יעד (Base Case)</span>
+              <span class="stat-pill" style="color: var(--gold); border-color: var(--gold);">יעד ההנהלה</span>
+            </div>
+            <div class="metric-hero" style="font-size: 42px;">+$20.7M ARR</div>
+            <div style="font-size: 14px; color: var(--text-sub); margin: 6px 0;">שיפור של +2.0% ב-D7 Retention</div>
+            <ul class="point-list" style="font-size: 13px; margin-top: 10px;">
+              <li>• צמצום נשירה בטיסות ובשטחים מתים: <b>+$8.9M</b>.</li>
+              <li>• המרת Vault Reconnect ל-IAP: <b>+$6.4M</b>.</li>
+              <li>• החזר השקעה מלא: <b>48 ימים בלבד!</b></li>
+            </ul>
+          </div>
+
+          <div class="card card-accent-emerald">
+            <span class="metric-sub">תרחיש אגרסיבי (Aggressive)</span>
+            <div class="metric-hero" style="color: var(--emerald); font-size: 38px;">+$34.5M ARR</div>
+            <div style="font-size: 14px; color: var(--text-muted); margin: 6px 0;">שיפור של +3.5% ב-D7 + Airlines</div>
+            <ul class="point-list" style="font-size: 13px; margin-top: 10px;">
+              <li>• פריצה בשווקי הודו/ברזיל ושותפויות טיסה.</li>
+              <li>• החזר השקעה מלא: <b>31 ימים</b>.</li>
+              <li>• ROI שנתי: <b>5,300%</b>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: Roadmap & Definition of Done -->
+      <section class="slide" data-slide="11">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">מפת דרכים ואבני דרך הנדסיות</div>
+            <h2 class="slide-title">תוכנית שחרור מדורגת ו-Definition of Done</h2>
+            <p class="slide-subtitle">4 אבני דרך מבוקרות עם שערי איכות (Quality Gates) מחמירים בשבע דיסציפלינות</p>
+          </div>
+          <div class="slide-num">11 / 12</div>
+        </div>
+
+        <div class="slide-body grid-4col">
+          <div class="card card-accent-cyan">
+            <span class="metric-sub">שלב 1 (שבועות 1–3)</span>
+            <div class="card-title">Alpha Dogfooding</div>
+            <p class="card-desc" style="font-size: 13px;">
+              בדיקות פנימיות של 250 עובדי Moon Active בטיסות אמיתיות.<br><br>
+              <b>שער מעבר:</b> 0 קריסות, 100% דיוק שחזור ב-Replay.
+            </p>
+          </div>
+
+          <div class="card card-accent-gold">
+            <span class="metric-sub">שלב 2 (שבועות 4–5)</span>
+            <div class="card-title">Technical Staging</div>
+            <p class="card-desc" style="font-size: 13px;">
+              ניסויי עומס המדמים נחיתת מטוסים עולמית ב-15k req/sec.<br><br>
+              <b>שער מעבר:</b> עמידה ב-p95 < 40ms, אפס נעילות DB.
+            </p>
+          </div>
+
+          <div class="card card-accent-purple">
+            <span class="metric-sub">שלב 3 (שבועות 6–8)</span>
+            <div class="card-title">Geo-Holdout Test</div>
+            <p class="card-desc" style="font-size: 13px;">
+              השקה מדורגת ל-5% משתמשים בברזיל והודו מול 5% Holdout.<br><br>
+              <b>שער מעבר:</b> עלייה מובהקת של +1.8% ב-D7 Retention.
+            </p>
+          </div>
+
+          <div class="card card-accent-emerald">
+            <span class="metric-sub">שלב 4 (שבועות 9–12)</span>
+            <div class="card-title">Global Rollout (GA)</div>
+            <p class="card-desc" style="font-size: 13px;">
+              פתיחה מלאה של 100% לכלל שחקני Coin Master ברחבי העולם.<br><br>
+              <b>שער מעבר:</b> החזר השקעה חיובי תוך פחות מ-90 יום.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: The Executive Ask & Decision Gate -->
+      <section class="slide" data-slide="12">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">סיכום מנהלים והחלטה</div>
+            <h2 class="slide-title">השורה התחתונה: בקשת אישור ההנהלה</h2>
+            <p class="slide-subtitle">התנעת פרויקט הדגל שיקבע את מעמדה הבלתי מעורער של Moon Active בפסגת הקז'ואל העולמית</p>
+          </div>
+          <div class="slide-num">12 / 12</div>
+        </div>
+
+        <div class="slide-body grid-2col">
+          <div class="card card-accent-gold" style="justify-content: center; padding: 36px;">
+            <span class="metric-sub">ההחלטה הנדרשת היום</span>
+            <div class="card-title" style="font-size: 26px; color: var(--gold);">אישור התנעת שלב 1 (Sprint 1–3: Alpha MVP)</div>
+            <ul class="point-list" style="margin-top: 16px;">
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--gold); color: var(--gold);">1</div>
+                <div><b>הקצאת משאבים ממוקדת:</b> Pod הנדסי אחד (6 מהנדסים) למשך 12 שבועות.</div>
+              </li>
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--gold); color: var(--gold);">2</div>
+                <div><b>אפס סיכון פיננסי או כלכלי:</b> מנגנוני 4 דרגות של מפסקי חירום (Kill-Switches) לשליטה מיידית.</div>
+              </li>
+              <li class="point-item">
+                <div class="point-badge" style="border-color: var(--gold); color: var(--gold);">3</div>
+                <div><b>פוטנציאל תשואה אדיר:</b> הגדלת ה-ARR ב-$20.7M והחזר השקעה בפחות מ-90 יום.</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card card-accent-emerald" style="justify-content: center; text-align: center; padding: 40px; background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);">
+            <div style="font-size: 64px; margin-bottom: 15px;">🚀</div>
+            <div style="font-family: var(--font-title); font-size: 28px; font-weight: 800; color: #ffffff; line-height: 1.3;">
+              Coin Master תמיד רציף,<br>תמיד בטוח, תמיד מתגמל —<br>
+              <span style="background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">באוויר, בים וביבשה.</span>
+            </div>
+            <div style="margin-top: 24px;">
+              <button class="nav-btn" style="width: auto; padding: 12px 30px; font-size: 16px; font-weight: 700; background: var(--gold-gradient); color: #000; display: inline-flex;" onclick="window.print()">
+                הורדת המצגת כ-PDF לאישור
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer Navigation -->
+  <footer class="deck-footer">
+    <div class="nav-hints">
+      <span><kbd>←</kbd> / <kbd>→</kbd> ניווט</span>
+      <span><kbd>Space</kbd> שקופית הבאה</span>
+      <span><kbd>F</kbd> מסך מלא</span>
+      <span><kbd>O</kbd> סקירת שקופיות</span>
+      <span><kbd>N</kbd> הערות מרצה</span>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="nav-btn" id="btnPrev" title="שקופית קודמת">❮</button>
+      <button class="nav-btn" id="btnNext" title="שקופית הבאה">❯</button>
+    </div>
+  </footer>
+
+  <!-- Slide Sorter Modal -->
+  <div class="overview-modal" id="overviewModal">
+    <div class="overview-header">
+      <div class="overview-title">🗂️ סקירת שקופיות המצגת (Slide Sorter)</div>
+      <button class="ctrl-btn" id="btnCloseOverview">✕ סגור <kbd>Esc</kbd></button>
+    </div>
+    <div class="overview-grid" id="overviewGrid"></div>
+  </div>
+
+  <!-- Speaker Notes Drawer -->
+  <div class="speaker-notes-drawer" id="notesDrawer">
+    <div class="notes-header">
+      <span class="notes-title">🎙️ הערות מנחה ודגשי שיחה להנהלה (Speaker Notes)</span>
+      <button class="ctrl-btn" id="btnCloseNotes" style="padding: 4px 10px;">✕ סגור</button>
+    </div>
+    <div class="notes-content" id="notesContent">טוען הערות...</div>
+  </div>
+
+  <script>
+    // Speaker notes database for all 12 slides
+    const speakerNotes = {
+      1: "דגש פתיחה: להתחיל בנקודת הכאב העסקית. 4.2 מיליון שעות שחקן מתאדות בכל יום בגלל 'המסך האדום'. המטרה שלנו היא לא רק פיצ'ר טכנולוגי, אלא מנוע צמיחה ושימור אסטרטגי שיגן על המעמד שלנו כמשחק הקז'ואל המוביל בעולם.",
+      2: "דגש שווקים: שים לב להודו (24%) וברזיל (12%). שווקים אלו הם מנוע ה-Volume שלנו, אך הם סובלים מהפסקות רשת מרובות. בארה\"ב מדובר בשחקני VIP שטסים או נוסעים ברכבות. בכל המקרים הללו, ניתוק מוביל לנטישה למשחקים מתחרים.",
+      3: "דגש תחרותי: זהו ה-Moat שלנו מול Monopoly GO! של Scopely. הם תקועים עם משחק לוח סינכרוני בזמן אמת ולא מסוגלים לעבור לאופליין. מנוע הסלוט וכפרי הרפאים שלנו מותאמים לזה מתמטית באופן מושלם.",
+      4: "דגש הנדסי ל-CTO: להדגיש את פשטות המימוש (3 בלוקים). אין צורך לשכתב את ה-Backend הקיים. ה-Replay לוקח פחות מ-4 מילישניות ומתבצע בזיכרון מעבד בלבד ללא שום נעילות מסד נתונים.",
+      5: "דגש פסיכולוגי: תורת הערך של כהנמן וטברסקי — אנשים שונאים להפסיד פי 2.5 מאשר הם אוהבים להרוויח. מנגנון מגן הטיסות (In-Flight Shield) מעניק שקט נפשי: השחקן יודע שהכפר שלו בטוח כשהוא במטוס.",
+      6: "דגש מוצרי: לא מציגים שום פופ-אפ מלחיץ. המעבר לאופליין שקט לחלוטין. השיא הרגשי מתרחש בנחיתה עם אנימציית פתיחת הכספת, שמייצרת חלון הזדמנות מונטיזציה אדיר להצעת Welcome Back.",
+      7: "דגש כלכלי ל-CFO: הסבר את כלל ה-80%. כפרי הבוטים נותנים 80% מהמטבעות, קלפי ג'וקר חסומים, והמכפיל מוגבל ל-x5. שחקן תמיד ירוויח יותר באונליין, ולכן אין שום תמריץ כלכלי להתנתק בכוונה.",
+      8: "דגש SRE ותשתיות: להרגיע מחששות Thundering Herd. מנגנון Full Jitter מפזר את הבקשות על פני 120 שניות. אשכול ה-Replay מסוגל לטפל ב-15,000 בקשות בשנייה בעלות ענן זניחה.",
+      9: "דגש רגולציה ו-IAP: עקרון הברזל Zero-Fulfillment-Offline. אפס ספינים מוענקים לפני אישור StoreKit 2 / Google Play. אפס סיכון ל-Chargeback ועמידה מלאה בהנחיות אפל ו-DSA.",
+      10: "דגש פיננסי למנכ\"ל ול-CFO: החזר השקעה מלא תוך 48 יום (Base Case) ועד 72 יום (שמרני). השקעה של $650K מול תוספת של $20.7M בשנה. ROI של מעל 3,000%.",
+      11: "דגש מפת דרכים: תהליך מבוקר ב-4 שלבים. מתחילים ב-Dogfooding פנימי של עובדי החברה, עוברים לעומסים וניסוי מדורג של 5% בברזיל והודו, ורק אז שחרור גלובלי מלא.",
+      12: "דגש סיום ובקשת החלטה: לבקש אישור לצאת לדרך עם שלב 1 (Alpha Dogfooding). להדגיש את מפסקי החירום המאפשרים השבתה תוך 30 שניות במקרה הצורך. 'באוויר, בים וביבשה'."
+    };
+
+    let currentSlide = 1;
+    const totalSlides = document.querySelectorAll('.slide').length;
+    const progressBar = document.getElementById('progressBar');
+    const overviewModal = document.getElementById('overviewModal');
+    const overviewGrid = document.getElementById('overviewGrid');
+    const notesDrawer = document.getElementById('notesDrawer');
+    const notesContent = document.getElementById('notesContent');
+
+    // Update Slide
+    function goToSlide(slideIndex) {
+      if (slideIndex < 1 || slideIndex > totalSlides) return;
+      
+      document.querySelectorAll('.slide').forEach(slide => {
+        slide.classList.remove('active');
+      });
+
+      const nextSlide = document.querySelector(`.slide[data-slide="${slideIndex}"]`);
+      if (nextSlide) {
+        nextSlide.classList.add('active');
+        currentSlide = slideIndex;
+        progressBar.style.width = `${(currentSlide / totalSlides) * 100}%`;
+        updateSpeakerNotes();
+        updateOverviewActiveState();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) goToSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) goToSlide(currentSlide - 1);
+    }
+
+    // Toggle Fullscreen
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // Toggle Overview
+    function toggleOverview() {
+      const isOpen = overviewModal.classList.contains('open');
+      if (isOpen) {
+        overviewModal.classList.remove('open');
+      } else {
+        renderOverviewGrid();
+        overviewModal.classList.add('open');
+      }
+    }
+
+    function renderOverviewGrid() {
+      overviewGrid.innerHTML = '';
+      document.querySelectorAll('.slide').forEach((slide, idx) => {
+        const slideNum = idx + 1;
+        const titleElem = slide.querySelector('.slide-title');
+        const titleText = titleElem ? titleElem.innerText : `שקופית ${slideNum}`;
+
+        const thumb = document.createElement('div');
+        thumb.className = `overview-thumb ${slideNum === currentSlide ? 'active' : ''}`;
+        thumb.innerHTML = `
+          <div class="thumb-num">שקופית ${slideNum < 10 ? '0' + slideNum : slideNum}</div>
+          <div class="thumb-title">${titleText}</div>
+        `;
+        thumb.onclick = () => {
+          goToSlide(slideNum);
+          overviewModal.classList.remove('open');
+        };
+        overviewGrid.appendChild(thumb);
+      });
+    }
+
+    function updateOverviewActiveState() {
+      document.querySelectorAll('.overview-thumb').forEach((thumb, idx) => {
+        if (idx + 1 === currentSlide) {
+          thumb.classList.add('active');
+        } else {
+          thumb.classList.remove('active');
+        }
+      });
+    }
+
+    // Toggle Notes
+    function toggleNotes() {
+      notesDrawer.classList.toggle('open');
+    }
+
+    function updateSpeakerNotes() {
+      notesContent.innerHTML = speakerNotes[currentSlide] || "אין הערות זמינות לשקופית זו.";
+    }
+
+    // Keyboard Event Handlers
+    document.addEventListener('keydown', (e) => {
+      // If overview is open and Esc pressed, close it
+      if (e.key === 'Escape') {
+        if (overviewModal.classList.contains('open')) {
+          overviewModal.classList.remove('open');
+          return;
+        }
+        if (notesDrawer.classList.contains('open')) {
+          notesDrawer.classList.remove('open');
+          return;
+        }
+      }
+
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      } else if (e.key.toLowerCase() === 'o') {
+        toggleOverview();
+      } else if (e.key.toLowerCase() === 'n') {
+        toggleNotes();
+      } else if (e.key === 'Home') {
+        goToSlide(1);
+      } else if (e.key === 'End') {
+        goToSlide(totalSlides);
+      }
+    });
+
+    // Touch Swipe Support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    document.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    document.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+      const swipeDistance = touchEndX - touchStartX;
+      if (swipeDistance < -50) {
+        nextSlide();
+      } else if (swipeDistance > 50) {
+        prevSlide();
+      }
+    }
+
+    // Button event listeners
+    document.getElementById('btnPrev').onclick = prevSlide;
+    document.getElementById('btnNext').onclick = nextSlide;
+    document.getElementById('btnNotes').onclick = toggleNotes;
+    document.getElementById('btnCloseNotes').onclick = () => notesDrawer.classList.remove('open');
+    document.getElementById('btnOverview').onclick = toggleOverview;
+    document.getElementById('btnCloseOverview').onclick = () => overviewModal.classList.remove('open');
+    document.getElementById('btnFullscreen').onclick = toggleFullscreen;
+
+    // Initial setup
+    goToSlide(1);
+  </script>
+</body>
+</html>

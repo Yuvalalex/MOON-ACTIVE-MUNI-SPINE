@@ -1895,46 +1895,40 @@ quadrantChart
 
 </details>
 ---
+
 ```mermaid
----
-title: 12.1 יישום מבוסס StoreKit 2 ו-Google Play Billing Deferred Queue
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
     "fontFamily": "Segoe UI, Assistant, sans-serif",
-    "fontSize": "16px",
+    "fontSize": "22px",
     "primaryColor": "#0f172a",
     "primaryTextColor": "#f8fafc",
     "primaryBorderColor": "#38bdf8",
-    "lineColor": "#38bdf8",
-    "secondaryColor": "#1e293b",
-    "tertiaryColor": "#1e293b",
-    "edgeLabelBackground": "#0f172a",
-    "nodeBorder": "#38bdf8",
-    "clusterBkg": "#0b1120",
-    "clusterBorder": "#38bdf8"
+    "lineColor": "#38bdf8"
   },
-  "flowchart": { "curve": "basis", "nodeSpacing": 30, "rankSpacing": 35, "padding": 15 },
-  "sequence": { "actorMargin": 30, "messageMargin": 30 },
-  "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
+  "flowchart": {
+    "nodeSpacing": 35,
+    "rankSpacing": 50,
+    "padding": 35
+  }
 }}%%
 flowchart LR
 
-    subgraph OFFLINE_PHASE ["✈️ שלב אופליין (In-Flight Intent)"]
+    subgraph OFFLINE_PHASE ["✈️ <b>שלב אופליין (In-Flight Intent)</b>"]
         direction TB
-        S1["🛒 <b>1. בחירת חבילה</b><br/><span style='font-size:14px;color:#94a3b8;'>שחקן בוחר חבילה (למשל: $4.99 / 150 ספינים)</span>"]
-        S2["📝 <b>2. רישום Purchase Intent</b><br/><span style='font-size:14px;color:#94a3b8;'>הנפקת רשומת הבטחה חתומה מקומית ב-SQLCipher</span>"]
-        S3["🔒 <b>3. אפס מימוש מוקדם (Zero Fulfillment)</b><br/><span style='font-size:14px;color:#fbbf24;'>המשאבים נעולים לחלוטין עד אישור השרת והחנות</span>"]
+        S1["🛒 <b>1. בחירת חבילה</b><br/><br/><span style='font-size:18px;color:#cbd5e1;'>שחקן בוחר חבילה בחנות (למשל: $4.99 / 150 ספינים)</span>"]
+        S2["📝 <b>2. רישום Purchase Intent</b><br/><br/><span style='font-size:18px;color:#cbd5e1;'>הנפקת רשומת הבטחה חתומה מקומית ב-SQLCipher</span>"]
+        S3["🔒 <b>3. אפס מימוש מוקדם (Zero Fulfillment)</b><br/><br/><span style='font-size:18px;color:#fbbf24;'>המשאבים נעולים לחלוטין עד אישור השרת והחנות</span>"]
         
         S1 ==> S2 ==> S3
     end
 
-    subgraph ONLINE_PHASE ["🌐 חזרת רשת (Store Settlement & Vault Unlock)"]
+    subgraph ONLINE_PHASE ["🌐 <b>חזרת רשת (Store Settlement & Vault Unlock)</b>"]
         direction TB
-        S4["📱 <b>4. הפעלת Native Sheet</b><br/><span style='font-size:14px;color:#94a3b8;'>פתיחת מסך תשלום מול Apple / Google בחזרת הרשת</span>"]
-        S5["✅ <b>5. אישור תשלום ומיזוג</b><br/><span style='font-size:14px;color:#34d399;'>קבלה מאומתת בשרת -> שחרור המשאבים למאזן הראשי</span>"]
-        S6["🛑 <b>6. מנגנון ביטול ו-Rollback</b><br/><span style='font-size:14px;color:#f87171;'>במקרה של סירוב תשלום/ביטול: הרשומה נמחקת מיידית</span>"]
+        S4["📱 <b>4. הפעלת Native Sheet</b><br/><br/><span style='font-size:18px;color:#38bdf8;'>פתיחת מסך תשלום מול Apple / Google בחזרת הרשת</span>"]
+        S5["✅ <b>5. אישור תשלום ומיזוג</b><br/><br/><span style='font-size:18px;color:#34d399;'>קבלה מאומתת בשרת ➔ שחרור המשאבים למאזן הראשי</span>"]
+        S6["🛑 <b>6. מנגנון ביטול ו-Rollback</b><br/><br/><span style='font-size:18px;color:#f87171;'>במקרה של סירוב תשלום/ביטול: הרשומה נמחקת מיידית</span>"]
         
         S4 ==> S5
         S4 -.->|"סירוב / כשל"| S6
@@ -1942,17 +1936,19 @@ flowchart LR
 
     OFFLINE_PHASE ==>|"חיבור מחודש לרשת"| ONLINE_PHASE
 
-    %% סגנונות כהים
-    style OFFLINE_PHASE fill:#090d16,stroke:#f59e0b,stroke-width:2px,color:#fbbf24
-    style ONLINE_PHASE fill:#090d16,stroke:#10b981,stroke-width:2px,color:#34d399
+    %% מסגרות חיצוניות כהות ומודגשות
+    style OFFLINE_PHASE fill:#090d16,stroke:#f59e0b,stroke-width:3px,color:#fbbf24
+    style ONLINE_PHASE fill:#090d16,stroke:#10b981,stroke-width:3px,color:#34d399
 
-    style S1 fill:#0f172a,stroke:#334155,stroke-width:1.5px,color:#f8fafc
-    style S2 fill:#0f172a,stroke:#334155,stroke-width:1.5px,color:#f8fafc
-    style S3 fill:#0f172a,stroke:#f59e0b,stroke-width:1.5px,color:#f8fafc
+    %% כרטיסים פנימיים מוגדלים ומרווחים
+    style S1 fill:#0f172a,stroke:#334155,stroke-width:2px,color:#f8fafc
+    style S2 fill:#0f172a,stroke:#334155,stroke-width:2px,color:#f8fafc
+    style S3 fill:#0f172a,stroke:#f59e0b,stroke-width:2px,color:#f8fafc
 
-    style S4 fill:#0f172a,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc
-    style S5 fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5
-    style S6 fill:#450a0a,stroke:#ef4444,stroke-width:1.5px,color:#fee2e2
+    style S4 fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style S5 fill:#064e3b,stroke:#34d399,stroke-width:2.5px,color:#ecfdf5
+    style S6 fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#fee2e2
+
 ```
 ---
 

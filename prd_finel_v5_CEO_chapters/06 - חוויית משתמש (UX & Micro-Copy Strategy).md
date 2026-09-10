@@ -24,7 +24,7 @@
 * **הסמן הוויזואלי:** כנפי זהב זעירות (Golden Wings) מופיעות מעל כפתור ה-SPIN עם כיתוב מוזהב מעודן: `OFFLINE: 85 SPINS LEFT`. השחקן מבין מיד שהוא מוגן ושהסשן פעיל.
 
 <p align="center">
-<img src="IMG_5452.PNG" alt="alt text" width="300" />
+<img src="assets/pic/image1.png" alt="אינדיקטור אופליין בממשק Coin Master" width="300" />
 </p>
 </details>
 

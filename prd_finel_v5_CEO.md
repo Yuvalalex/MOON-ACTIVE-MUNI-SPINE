@@ -828,18 +828,8 @@ flowchart LR
 <details>
 <summary><b>❇️לחץ כאן לצפייה בתמונות הממחישות את ניתוקי הרשת❇️</b></summary>
 
-<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/1efb56aa-4eca-4b20-9805-f1a8e35fa112" />
-<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/04c38ad9-18bd-4f34-8f47-ea3b15056eec" />
-<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/dada7f97-c8c4-4239-af15-80445a6960f2" />
-<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/5de97491-8f34-4bec-8c05-7811a356a666" />
-<img width="1024" height="571" alt="image" src="https://github.com/user-attachments/assets/4d9c8301-dac1-4cf0-9e35-cd87ee6efa90" />
-<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/7ed80941-df9d-43e9-a8fb-0a32579d1a9c" />
-<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/0220d676-db6d-4dcd-8f4b-af455ed3343f" />
-<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/d0826dcd-7b58-4778-9352-9c329f43e0a4" />
-<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/9c6f14a8-b42b-4e65-bef8-49dba691bd71" />
-<img width="1170" height="2532" alt="image" src="https://github.com/user-attachments/assets/a539262c-8328-4c96-aa3e-230d1fd513fc" />
-<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/0b5e51cb-e237-4e72-b0fb-e837ed29f165" />
-<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/fe1988d3-8a04-4023-9e18-5327adb41af2" />
+![תמונת מצב ניתוקי רשת](assets/pic/image-2.png)
+![חוויית משתמש וקליטה](assets/pic/image-3.png)
 
 </details>
 
@@ -880,16 +870,27 @@ title: "4.1 תמונת מצב עולמית: אתגרי רשת בשווקי הי�
     "clusterBkg": "#0b1120",
     "clusterBorder": "#38bdf8"
   },
-  "flowchart": { "curve": "basis", "nodeSpacing": 30, "rankSpacing": 35, "padding": 15 },
-  "sequence": { "actorMargin": 30, "messageMargin": 30 },
-  "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
+  "flowchart": { "nodeSpacing": 30, "rankSpacing": 35, "padding": 20 }
 }}%%
-pie התפלגות גלובלית של הורדות Coin Master (Market Share)
-    "הודו (Volume Market)" : 24
-    "ברזיל (Casual Hub)" : 12
-    "ארצות הברית (Top Revenue/LTV)" : 10
-    "מקסיקו (Emerging LATAM)" : 6
-    "שאר העולם (אירופה, אסיה, ועוד)" : 48
+flowchart TD
+    subgraph GLOBAL_STATS ["🌍 <b>4.1 התפלגות הורדות עולמית: שווקי היעד של COIN MASTER</b>"]
+        direction LR
+        
+        M1["🇮🇳 <b>הודו (Volume Market)</b><br/><br/><span style='font-size:24px;color:#38bdf8;'><b>24%</b></span><br/><span style='font-size:14px;color:#94a3b8;'>נפח משתמשים עצום • רשת לא יציבה</span>"]
+        M2["🇧🇷 <b>ברזיל (Casual Hub)</b><br/><br/><span style='font-size:24px;color:#34d399;'><b>12%</b></span><br/><span style='font-size:14px;color:#94a3b8;'>שוק קז'ואל מרכזי • ניתוקי דרכים</span>"]
+        M3["🇺🇸 <b>ארה''ב (Top Revenue)</b><br/><br/><span style='font-size:24px;color:#fbbf24;'><b>10%</b></span><br/><span style='font-size:14px;color:#94a3b8;'>LTV מקסימלי • טיסות ונסיעות עסקים</span>"]
+        M4["🇲🇽 <b>מקסיקו (LATAM)</b><br/><br/><span style='font-size:24px;color:#f472b6;'><b>6%</b></span><br/><span style='font-size:14px;color:#94a3b8;'>שוק בצמיחה מהירה ב-LATAM</span>"]
+        M5["🌐 <b>שאר העולם (Row)</b><br/><br/><span style='font-size:24px;color:#a855f7;'><b>48%</b></span><br/><span style='font-size:14px;color:#94a3b8;'>אירופה, אסיה-פסיפיק ועוד</span>"]
+
+        M1 ~~~ M2 ~~~ M3 ~~~ M4 ~~~ M5
+    end
+
+    style GLOBAL_STATS fill:#090d16,stroke:#38bdf8,stroke-width:2px,color:#38bdf8
+    style M1 fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style M2 fill:#0f172a,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style M3 fill:#0f172a,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style M4 fill:#0f172a,stroke:#f472b6,stroke-width:2px,color:#f8fafc
+    style M5 fill:#0f172a,stroke:#a855f7,stroke-width:2px,color:#f8fafc
 ```
 
 ### 4.2 ניתוח עומק לפי שווקים גיאוגרפיים
@@ -1110,7 +1111,7 @@ flowchart LR
 * **הסמן הוויזואלי:** כנפי זהב זעירות (Golden Wings) מופיעות מעל כפתור ה-SPIN עם כיתוב מוזהב מעודן: `OFFLINE: 85 SPINS LEFT`. השחקן מבין מיד שהוא מוגן ושהסשן פעיל.
 
 <p align="center">
-<img src="IMG_5452.PNG" alt="alt text" width="300" />
+<img src="assets/pic/image1.png" alt="אינדיקטור אופליין בממשק Coin Master" width="300" />
 </p>
 </details>
 

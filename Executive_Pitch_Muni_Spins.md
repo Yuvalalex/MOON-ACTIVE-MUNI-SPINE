@@ -54,8 +54,8 @@ The "Leased Offline State" solves the core challenges of Social Casino fraud pre
 *   **The Goal:** Transform this fear and helplessness into a feeling of control and satisfaction by allowing secure offline play.
 
 <p align="center">
-  <img width="500" alt="image" src="https://github.com/user-attachments/assets/1efb56aa-4eca-4b20-9805-f1a8e35fa112" />
-  <img width="500" alt="image" src="https://github.com/user-attachments/assets/04c38ad9-18bd-4f34-8f47-ea3b15056eec" />
+  <img width="500" alt="Coin Master Network Disconnection" src="assets/pic/image-2.png" />
+  <img width="500" alt="Coin Master Reconnect Touchpoint" src="assets/pic/image-3.png" />
 </p>
 
 ## 3. Market Opportunity & Strategic Growth

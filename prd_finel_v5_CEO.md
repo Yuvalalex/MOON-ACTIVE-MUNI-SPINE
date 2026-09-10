@@ -848,6 +848,7 @@ flowchart LR
 איכות הקליטה בפועל שונה מהותית מהגדרת "יש / אין קליטה". במדינות המובילות בהורדות, התשתית הפיזית אינה מאפשרת חוויית Online רציפה.
 
 </details>
+
 ![Global Mobile Connectivity Challenges for Casual Mobile Gaming](assets/pic/coinmaster_global_markets.jpg)
 
 ```mermaid

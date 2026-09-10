@@ -6,6 +6,12 @@
 
 ---
 
+
+
+https://github.com/user-attachments/assets/a7a8a668-6044-46fb-b18d-18607fe4eca8
+
+
+
 <p align="center">
   <img src="prd_finel_v5_CEO_chapters/image-9.png" alt="Coin Master Hybrid Offline Architecture" width="850" />
 </p>

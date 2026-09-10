@@ -6,9 +6,7 @@
 
 ---
 
-
-
-https://github.com/user-attachments/assets/a7a8a668-6044-46fb-b18d-18607fe4eca8
+[# Coin Master: Muni-Spins Hybrid Offline Architecture](https://github.com/user-attachments/assets/a7a8a668-6044-46fb-b18d-18607fe4eca8)
 
 
 

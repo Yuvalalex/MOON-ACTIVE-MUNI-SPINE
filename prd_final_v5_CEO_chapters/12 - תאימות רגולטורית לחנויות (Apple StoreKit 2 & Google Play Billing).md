@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 12 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 12 מתוך 25 -->
 
 > **שם הפרק:** תאימות רגולטורית לחנויות (Apple StoreKit 2 & Google Play Billing)
 

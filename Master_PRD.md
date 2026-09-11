@@ -1,9 +1,6 @@
+# Master PRD: Hybrid Offline-First Architecture - Coin Master
 
-
-
-#  Coin Master: Muni-Spins - Hybrid Offline-Mode - Feature 
-
-# Master PRD: Product Strategy, Engineering Architecture, Monetization, and Game Economics
+### אסטרטגיית מוצר, ארכיטקטורה הנדסית, מונטיזציה וכלכלת משחק (Moon Active)
 
 
 > [!IMPORTANT]
@@ -125,9 +122,6 @@
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: כרטיסיית מנהלים מקוצרת (Executive Snapshot: Why This Wins)
----
 flowchart LR
     subgraph HEADER ["🚀 <b>COIN MASTER HYBRID OFFLINE-FIRST</b>"]
         direction LR
@@ -201,9 +195,6 @@ flowchart LR
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 flowchart LR
     subgraph ZERO_RISK ["🛡️ <b>ZERO-RISK ARCHITECTURE & FEASIBILITY</b>"]
         direction LR
@@ -251,9 +242,6 @@ flowchart LR
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 graph TD
     subgraph Threat1["1. אבטחה ורמאויות (Anti-Cheat)"]
         T1["הגרלות בצד שרת (RNG)<br/>חשש מביטול ספין מפסיד (Save-Scumming)<br/>מניפולציות שעון מקומי (Time-Travel)"]
@@ -297,9 +285,6 @@ graph TD
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 flowchart LR
 
     %% עמודת איומים ואתגרים
@@ -375,9 +360,6 @@ flowchart LR
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 graph LR
     subgraph Growth["1. צמיחה בשווקי Volume"]
         A["Emerging Markets<br/>(הודו, ברזיל, מקסיקו)<br/>הסרת חסם הניתוקים ב-4G"]
@@ -425,9 +407,6 @@ graph LR
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 flowchart LR
 
     subgraph PlugPlay ["🧩 3 רכיבי ה-Plug-and-Play החדשים (מבודדים ובטוחים)"]
@@ -502,9 +481,6 @@ flowchart LR
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 flowchart TD
 
     subgraph TOP ["📈 <b>צמיחה, שימור והכנסות (Top-Line Growth)</b>"]
@@ -571,9 +547,6 @@ flowchart TD
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 flowchart TD
     subgraph PITCH ["🎯 <b>EXECUTIVE SUMMARY: THE PM PITCH</b>"]
         direction LR
@@ -632,9 +605,6 @@ flowchart TD
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 graph TD
     UserAction[פעולת שחקן: ספין / רכישה / שדרוג] --> CheckNetwork{האם יש קליטה מהירה?}
     
@@ -689,9 +659,6 @@ graph TD
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 2. למה זה פשוט ולא מורכב למימוש? (The 3-Block Plug-and-Play Simplicity)
----
 flowchart LR
 
     subgraph PlugPlay ["🧩 3 רכיבי ה-Plug-and-Play החדשים (מבודדים ובטוחים)"]
@@ -738,8 +705,6 @@ flowchart LR
 3. **הגנה מוחלטת מכשל (Blast Radius = 0):** אם רכיב האופליין נתקל בתקלה נדירה – הלקוח פשוט מתנהג בדיוק כפי שהוא מתנהג היום (מבקש חיבור לאינטרנט). אין שום סיכון לפגיעה בשחקני האונליין הרגילים!
 
 
-</details>
-
 ---
 
 ## 3. פסיכולוגיה התנהגותית, שימור הרגלים ומניעת חרדת שחקן (The Habit Loop & Loss Aversion)
@@ -774,9 +739,6 @@ flowchart LR
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 3. פסיכולוגיה התנהגותית, שימור הרגלים ומניעת חרדת שחקן (The Habit Loop & Loss Aversion)
----
 flowchart LR
     Cue["1. סימן מעורר (Cue)<br/>נסיעת בוקר ברכבת /<br/>התיישבות במושב טיסה"] --> Craving["2. השתוקקות (Craving)<br/>רצון בספינים, דופמין<br/>ורגיעה בדרך"]
     Craving --> Action["3. פעולה (Action)<br/>פתיחת Coin Master<br/>ומעבר שקוף לאופליין"]
@@ -827,9 +789,6 @@ flowchart LR
 ![Global Mobile Connectivity Challenges for Casual Mobile Gaming](assets/pic/coinmaster_global_markets.jpg)
 
 ```mermaid
----
-title: "4.1 תמונת מצב עולמית: אתגרי רשת בשווקי היעד של Coin Master"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -887,7 +846,7 @@ flowchart TD
 </details>
 
 ---
-###  ניתוח רווחים משוערים וערך מוסף 
+### ניתוח רווחים משוערים וערך מוסף
 
 ---
 
@@ -937,9 +896,6 @@ flowchart TD
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 4.3 האתגר הקיים ב-Coin Master (למה המשחק אינו עובד כיום באופליין?)
----
 graph TD
     subgraph Threat1["1. אבטחה ורמאויות (Anti-Cheat)"]
         T1["הגרלות בצד שרת (RNG)<br/>חשש מביטול ספין מפסיד (Save-Scumming)<br/>מניפולציות שעון מקומי (Time-Travel)"]
@@ -983,9 +939,6 @@ graph TD
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 4.3 האתגר הקיים ב-Coin Master (למה המשחק אינו עובד כיום באופליין?)
----
 flowchart LR
 
     %% עמודת איומים ואתגרים
@@ -1172,9 +1125,6 @@ flowchart LR
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 6.4 מכונת המצבים של חוויית השחקן (Player Lifecycle State Machine)
----
 flowchart TD
     Start((שחקן לוחץ Spin)) --> CheckBudget{האם נותרו ספינים<br>במכסת ה-Lease?}
     CheckBudget -- לא --> Alert[הצגת הודעת אלגנטית:<br>'התחבר לרשת להמשך']
@@ -1225,9 +1175,6 @@ flowchart TD
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 6.4 מכונת המצבים של חוויית השחקן (Player Lifecycle State Machine)
----
 stateDiagram-v2
     [*] --> OnlineConnected: פתיחת המשחק ברשת תקינה
     
@@ -1304,9 +1251,6 @@ stateDiagram-v2
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 6.4 מכונת המצבים של חוויית השחקן (Player Lifecycle State Machine)
----
 sequenceDiagram
     participant App as Mobile App
     participant Vault as Local Hash-Chain
@@ -1357,9 +1301,6 @@ sequenceDiagram
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 6.4 מכונת המצבים של חוויית השחקן (Player Lifecycle State Machine)
----
 flowchart TD
     subgraph Client ["Client Device (Offline)"]
         direction TB
@@ -1411,9 +1352,6 @@ flowchart TD
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 7. דרישות פונקציונליות וארכיטקטורת Leased Session (MoSCoW)
----
 flowchart LR
 
     subgraph Must ["🔴 MUST HAVE (בסיס קריטי)"]
@@ -1499,9 +1437,6 @@ flowchart LR
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 7.2 פירוט הדרישות ההנדסיות
----
 flowchart TD
 
     subgraph CORE ["🛡️ <b>עקרון אבטחה מחייב: הלקוח אינו מקור אמת (Zero-Trust Client)</b><br/><span style='font-size:24px;color:#94a3b8;'>מצב אופליין מציג פעולות מוגבלות בלבד | השרת בלבד מאשר תוצאה סופית | כל נכס כלכלי מחויב באימות כפול וב-Idempotency</span>"]
@@ -1609,9 +1544,6 @@ flowchart TD
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 8. מודול LiveOps ופרוטוקול אירועים חיים באופליין (LiveOps & Tournament Grace Protocol)
----
 flowchart TD
     IssueToken["1. בעת יצירת Lease:<br/>הורדת LiveOps Snapshot<br/>(מזהה אירוע, מדרגות פרס, מועד סיום UTC)"] --> PlayOffline["2. משחק באופליין:<br/>צבירת נקודות אירוע מקומיות<br/>(נחתמות ב-Hash-Chain)"]
     
@@ -1712,9 +1644,6 @@ $$P_{\text{coin}} = \text{BaseReward} \times \text{BetMultiplier} \times \left(1
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 10.2 פתרון בעיית "עדר הניתורים" בענן (The Thundering Herd & Load Flattening)
----
 flowchart TD
     PlaneLanding["נחיתת מטוס: 120 שחקנים מתחברים במקביל"] --> ReconnectDetected{"זיהוי חידוש קליטה בלקוח"}
     
@@ -1764,9 +1693,6 @@ flowchart TD
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 11. דרישות לא-פונקציונליות, שוברי מעגלים ו-Kill-Switch (Circuit Breakers & Emergency Governance)
----
 quadrantChart
     title מפת הקשחת אבטחה וביצועים (Security & NFRs)
     x-axis "רגישות מערכתית נמוכה" --> "קריטיות כלכלית עליונה (Zero Tolerance)"
@@ -1825,9 +1751,6 @@ quadrantChart
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 12.1 יישום מבוסס StoreKit 2 ו-Google Play Billing Deferred Queue
----
 flowchart LR
 
     subgraph OFFLINE_PHASE ["✈️ שלב אופליין (In-Flight Intent)"]
@@ -1904,9 +1827,6 @@ flowchart LR
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 13. ערך עסקי ורווחי: טווח מיידי מול טווח בינוני-ארוך (Business Value & Two-Horizon ROI)
----
 graph LR
     subgraph Horizon1["אופק 1: טווח מיידי (Day 1 עד Q1)"]
         direction TB
@@ -2018,9 +1938,6 @@ graph LR
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 14. חזון שיתופי פעולה מסחריים (In-Flight Airline Partnerships & Zero-CAC Acquisition)
----
 flowchart TD
 
     subgraph AD_FRAME ["✈️ <b>IN-FLIGHT WI-FI PORTAL AD CAMPAIGN</b> (Captive Audience Growth)"]
@@ -2077,9 +1994,6 @@ flowchart TD
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 15. מדדי הצלחה ומילון אירועי אנליטיקס (Telemetry & Data Dictionary)
----
 graph LR
     subgraph Primary["מדדי הצלחה ראשיים (Primary KPIs)"]
         direction TB
@@ -2178,9 +2092,6 @@ graph LR
   "sequence": { "actorMargin": 30, "messageMargin": 30 },
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
----
-title: 17.2 תוכנית שחרור הדרגתי (Phased Rollout Strategy)
----
 flowchart LR
     Phase1["שלב 1: Soft Launch<br/><b>5% מהמשתמשים</b><br/>(מדינת Tier 3 - הפיליפינים)<br/>איתור שגיאות Out-Of-Sync"] --> Phase2["שלב 2: A/B Testing<br/><b>50% מהמשתמשים</b><br/>(הודו וברזיל)<br/>מדידת Retention ו-IAP Uplift"]
     Phase2 --> Phase3["שלב 3: Global Rollout<br/><b>100% פריסה עולמית</b><br/>קמפיין שיווקי עולמי<br/>'Coin Master תמיד איתך'"]

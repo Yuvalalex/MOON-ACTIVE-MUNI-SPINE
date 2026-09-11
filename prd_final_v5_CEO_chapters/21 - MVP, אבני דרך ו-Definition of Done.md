@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 21 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 21 מתוך 25 -->
 
 > **שם הפרק:** MVP, אבני דרך ו-Definition of Done  
 > **סטטוס מסמך:** Approved by C-Level / Production Ready  

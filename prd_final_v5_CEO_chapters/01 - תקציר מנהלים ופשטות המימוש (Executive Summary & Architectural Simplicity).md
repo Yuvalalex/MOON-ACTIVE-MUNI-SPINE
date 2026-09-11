@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 1 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 1 מתוך 25 -->
 
 > **שם הפרק:** תקציר מנהלים ופשטות המימוש (Executive Summary & Architectural Simplicity)
 
@@ -32,9 +32,6 @@
 
 ---
 ```mermaid
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -82,9 +79,6 @@ flowchart LR
 
 
 ```mermaid
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -128,9 +122,6 @@ graph TD
 
 ---
 ```mermaid
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -206,9 +197,6 @@ flowchart LR
 ---
 
 ```mermaid
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -256,9 +244,6 @@ graph LR
 ---
 
 ```mermaid
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -334,9 +319,6 @@ flowchart LR
 ---
 
 ```mermaid
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -403,9 +385,6 @@ flowchart TD
 
 
 ```mermaid
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -462,9 +441,6 @@ flowchart TD
 <summary><b>❇️לחץ כאן לצפייה בתוכן המלא❇️</b></summary>
 
 ```mermaid
----
-title: 1.1 חזון המוצר והרציונל העסקי
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

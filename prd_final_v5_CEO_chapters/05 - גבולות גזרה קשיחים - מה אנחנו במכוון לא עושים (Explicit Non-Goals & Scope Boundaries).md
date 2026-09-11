@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 5 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 5 מתוך 25 -->
 
 > **שם הפרק:** גבולות גזרה קשיחים: מה אנחנו במכוון *לא* עושים (Explicit Non-Goals & Scope Boundaries)
 
@@ -33,9 +33,6 @@
 ### 5.2 תרשים אכיפת גבולות הגזרה בצד הלקוח (Scope Enforcement Logic)
 
 ```mermaid
----
-title: "5.2 מנגנון אכיפת גבולות הגזרה בצד הלקוח"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

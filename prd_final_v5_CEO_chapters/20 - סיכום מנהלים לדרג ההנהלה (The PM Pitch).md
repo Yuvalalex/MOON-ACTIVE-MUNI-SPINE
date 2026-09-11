@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 20 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 20 מתוך 25 -->
 
 > **שם הפרק:** סיכום מנהלים לדרג ההנהלה (The PM Pitch)  
 > **סטטוס מסמך:** Approved by C-Level / Production Ready  

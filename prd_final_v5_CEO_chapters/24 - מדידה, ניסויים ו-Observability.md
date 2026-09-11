@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 24 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 24 מתוך 25 -->
 
 > **שם הפרק:** מדידה, ניסויים ו-Observability
 
@@ -46,9 +46,6 @@
 כל שירות במערך מייצר מזהי `trace_id` ו-`correlation_id` הזורמים לאורך כל מחזור החיים של הסשן.
 
 ```mermaid
----
-title: "24.2 ארכיטקטורת הניטור וה-Distributed Tracing"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

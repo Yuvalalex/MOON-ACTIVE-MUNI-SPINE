@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 3 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 3 מתוך 25 -->
 
 > **שם הפרק:** פסיכולוגיה התנהגותית, שימור הרגלים ומניעת חרדת שחקן (The Habit Loop & Loss Aversion)
 
@@ -13,9 +13,6 @@
 
 
 ```mermaid
----
-title: 3. פסיכולוגיה התנהגותית, שימור הרגלים ומניעת חרדת שחקן (The Habit Loop & Loss Aversion)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 9 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 9 מתוך 25 -->
 
 > **שם הפרק:** איזון כלכלי ומניעת ארביטראז' (Dynamic Economy Scaling & Anti-Arbitrage Math)
 

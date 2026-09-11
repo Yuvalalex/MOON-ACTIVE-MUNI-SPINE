@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 15 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 15 מתוך 25 -->
 
 > **שם הפרק:** מדדי הצלחה ומילון אירועי אנליטיקס (Telemetry & Data Dictionary)
 
@@ -9,9 +9,6 @@
 - המדידה מחלקת בין KPIs עסקיים, Guardrails כלכליים וסיגנלים תפעוליים.
 
 ```mermaid
----
-title: 15. מדדי הצלחה ומילון אירועי אנליטיקס (Telemetry & Data Dictionary)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 14 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 14 מתוך 25 -->
 
 > **שם הפרק:** חזון שיתופי פעולה מסחריים (In-Flight Airline Partnerships & Zero-CAC Acquisition)
 
@@ -31,9 +31,6 @@
 ### 14.2 אינטגרציה טכנולוגית: פורטל ה-Wi-Fi וה-Local Intranet Caching
 
 ```mermaid
----
-title: "14.2 ארכיטקטורת אינטגרציה בטיסה (In-Flight Captive Portal Architecture)"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

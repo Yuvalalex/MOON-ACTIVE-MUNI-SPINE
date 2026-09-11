@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 8 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 8 מתוך 25 -->
 
 > **שם הפרק:** מודול LiveOps ופרוטוקול אירועים חיים באופליין (LiveOps & Tournament Grace Protocol)
 
@@ -12,9 +12,6 @@
 > [!IMPORTANT]
 > **האתגר המרכזי:** ב-Coin Master, כ-80% מההכנסות והמעורבות מונעות מאירועים מתוזמנים (*Viking Quest*, *Attack Madness*, *Tournament of Champions*). אם שחקן משחק בטיסה והאירוע מסתיים בזמן שהוא מנותק – אסור בשום אופן שההתקדמות שלו תימחק, ומאידך אסור לאפשר עקיפת מועד סיום האירוע.
 ```mermaid
----
-title: 8. מודול LiveOps ופרוטוקול אירועים חיים באופליין (LiveOps & Tournament Grace Protocol)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

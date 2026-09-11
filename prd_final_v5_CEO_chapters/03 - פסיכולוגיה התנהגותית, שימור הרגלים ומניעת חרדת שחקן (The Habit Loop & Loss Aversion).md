@@ -13,9 +13,6 @@
 
 
 ```mermaid
----
-title: 3. פסיכולוגיה התנהגותית, שימור הרגלים ומניעת חרדת שחקן (The Habit Loop & Loss Aversion)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

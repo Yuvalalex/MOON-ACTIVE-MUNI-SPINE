@@ -33,9 +33,6 @@
 ### 5.2 תרשים אכיפת גבולות הגזרה בצד הלקוח (Scope Enforcement Logic)
 
 ```mermaid
----
-title: "5.2 מנגנון אכיפת גבולות הגזרה בצד הלקוח"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

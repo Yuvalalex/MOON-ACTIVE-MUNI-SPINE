@@ -27,10 +27,6 @@
 איכות הקליטה בפועל שונה מהותית מהגדרת "יש / אין קליטה". במדינות המובילות בהורדות, התשתית הפיזית אינה מאפשרת חוויית Online רציפה.
 
 
----
-title: "4.1 תמונת מצב עולמית: אתגרי רשת בשווקי היעד של Coin Master"
----
-
 ```mermaid
 %%{init: {
   "theme": "base",
@@ -128,9 +124,6 @@ flowchart TD
 <summary><b>❇️לחץ כאן לצפייה בתוכן המלא❇️</b></summary>
 
 ```mermaid
----
-title: 4.3 האתגר הקיים ב-Coin Master (למה המשחק אינו עובד כיום באופליין?)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -174,9 +167,6 @@ graph TD
 
 ---
 ```mermaid
----
-title: 4.3 האתגר הקיים ב-Coin Master (למה המשחק אינו עובד כיום באופליין?)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -249,4 +239,3 @@ flowchart LR
 </details>
 
 ---
-

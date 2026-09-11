@@ -46,9 +46,6 @@
 כל שירות במערך מייצר מזהי `trace_id` ו-`correlation_id` הזורמים לאורך כל מחזור החיים של הסשן.
 
 ```mermaid
----
-title: "24.2 ארכיטקטורת הניטור וה-Distributed Tracing"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

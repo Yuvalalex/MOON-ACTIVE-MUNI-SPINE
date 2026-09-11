@@ -43,9 +43,6 @@
 > **הסכנה התשתיתית:** 120 בקשות סנכרון Batch כבדות פוגעות באותה אלפית שנייה ב-API Gateway ומאיימות לייצר עומס רגעי (Spike) שיגרור שרשרת קריסות (Cascading Failure)!
 
 ```mermaid
----
-title: "10.2 פתרון בעיית עדר הניתורים (The Thundering Herd & Load Flattening)"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

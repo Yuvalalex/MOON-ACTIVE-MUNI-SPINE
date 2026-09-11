@@ -14,9 +14,6 @@
 > [!TIP]
 > **הבהרת Business Case:** המספרים להלן הם היפותזות עבודה בלבד. יש לאמת אותם באמצעות baseline, ניסוי מבוקר וניתוח incremental net contribution לפני החלטת rollout.
 ```mermaid
----
-title: "13. ערך עסקי ורווחי: טווח מיידי מול טווח בינוני-ארוך (Business Value & Two-Horizon ROI)"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

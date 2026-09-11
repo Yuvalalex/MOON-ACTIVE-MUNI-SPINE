@@ -10,9 +10,6 @@
 - אבן יסוד: Zero-Trust Client עם מכסה חתומה, ghosts ו-escrow מבודד.
 
 ```mermaid
----
-title: 7. דרישות פונקציונליות וארכיטקטורת Leased Session (MoSCoW)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -109,9 +106,6 @@ flowchart LR
 ---
 
 ```mermaid
----
-title: 7.2 פירוט הדרישות ההנדסיות
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

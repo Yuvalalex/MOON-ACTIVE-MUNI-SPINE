@@ -170,9 +170,6 @@
 
 
 ```mermaid
----
-title: "כרטיסיית מנהלים מקוצרת (Executive Snapshot: Why This Wins)"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

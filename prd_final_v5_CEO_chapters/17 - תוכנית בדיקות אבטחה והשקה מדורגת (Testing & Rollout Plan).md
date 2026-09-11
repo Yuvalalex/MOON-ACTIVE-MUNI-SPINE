@@ -30,9 +30,6 @@
 ההשקה תתבצע ב-4 שלבים מבוקרים. מעבר בין שלב לשלב מותנה בעמידה בשערי איכות (Quality Gates) חד-משמעיים:
 
 ```mermaid
----
-title: "17.2 תוכנית שחרור מדורג ו-Quality Gates"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

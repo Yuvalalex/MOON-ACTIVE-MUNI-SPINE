@@ -31,9 +31,6 @@
 ### 14.2 אינטגרציה טכנולוגית: פורטל ה-Wi-Fi וה-Local Intranet Caching
 
 ```mermaid
----
-title: "14.2 ארכיטקטורת אינטגרציה בטיסה (In-Flight Captive Portal Architecture)"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

@@ -9,9 +9,6 @@
 - המדידה מחלקת בין KPIs עסקיים, Guardrails כלכליים וסיגנלים תפעוליים.
 
 ```mermaid
----
-title: 15. מדדי הצלחה ומילון אירועי אנליטיקס (Telemetry & Data Dictionary)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

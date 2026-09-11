@@ -9,9 +9,6 @@
 - הפרק מרכז זמינות, ביצועים ויכולת השבתה מהירה במקרה של חריגה או הונאה.
 
 ```mermaid
----
-title: 11. דרישות לא-פונקציונליות, שוברי מעגלים ו-Kill-Switch (Circuit Breakers & Emergency Governance)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -67,9 +64,6 @@ quadrantChart
 למניעת כל סיכון תפעולי או פיננסי, תוכננה מערכת השבתה מדורגת המאפשרת תגובה כירורגית ללא פגיעה בכלל שחקני המשחק:
 
 ```mermaid
----
-title: "11.2 מכונת המצבים של שובר המעגלים (Circuit Breaker State Machine)"
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

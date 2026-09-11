@@ -100,9 +100,6 @@
 
 
 ```mermaid
----
-title: 6.4 מכונת המצבים של חוויית השחקן (Player Lifecycle State Machine)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -153,9 +150,6 @@ flowchart TD
 ---
 
 ```mermaid
----
-title: 6.4 מכונת המצבים של חוויית השחקן (Player Lifecycle State Machine)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -232,9 +226,6 @@ stateDiagram-v2
 ---
 
 ```mermaid
----
-title: 6.4 מכונת המצבים של חוויית השחקן (Player Lifecycle State Machine)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {
@@ -285,9 +276,6 @@ sequenceDiagram
 
 ---
 ```mermaid
----
-title: 6.4 מכונת המצבים של חוויית השחקן (Player Lifecycle State Machine)
----
 %%{init: {
   "theme": "base",
   "themeVariables": {

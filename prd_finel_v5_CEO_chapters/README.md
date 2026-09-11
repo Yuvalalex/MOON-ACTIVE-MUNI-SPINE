@@ -225,3 +225,7 @@ flowchart LR
 ![alt text](image-7.png)
 ---
 
+
+![System Architecture](assets/pic/coinmaster_tech_architecture.jpg)
+*תרשים זרימה טכנולוגי: מעטפת האופליין מול שירותי המשחק המרכזיים*
+---

@@ -1,3 +1,6 @@
+
+
+
 # Coin Master: Muni-Spins Hybrid Offline Architecture
 ### Executive PRD, Technical Blueprint & Commercial Strategy for Moon Active
 **Author:** Yuval Alexandrony  
@@ -6,7 +9,8 @@
 
 ---
 
-[🎥 🎥 🎥 Coin Master: Muni-Spins Hybrid Offline-video 🎥 🎥 🎥](https://github.com/user-attachments/assets/a7a8a668-6044-46fb-b18d-18607fe4eca8)
+[🎥 🎥 🎥 Coin Master: Muni-Spins Hybrid Offline-video 🎥 🎥 🎥](https://github.com/user-attachments/assets/31bd02e8-7f00-4917-b103-515554c41cff)
+
 
 
 

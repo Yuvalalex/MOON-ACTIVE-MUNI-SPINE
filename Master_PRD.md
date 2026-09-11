@@ -1,9 +1,6 @@
+# Master PRD: Hybrid Offline-First Architecture - Coin Master
 
-
-
-#  Coin Master: Muni-Spins - Hybrid Offline-Mode - Feature 
-
-# Master PRD: Product Strategy, Engineering Architecture, Monetization, and Game Economics
+### אסטרטגיית מוצר, ארכיטקטורה הנדסית, מונטיזציה וכלכלת משחק (Moon Active)
 
 
 > [!IMPORTANT]
@@ -738,8 +735,6 @@ flowchart LR
 3. **הגנה מוחלטת מכשל (Blast Radius = 0):** אם רכיב האופליין נתקל בתקלה נדירה – הלקוח פשוט מתנהג בדיוק כפי שהוא מתנהג היום (מבקש חיבור לאינטרנט). אין שום סיכון לפגיעה בשחקני האונליין הרגילים!
 
 
-</details>
-
 ---
 
 ## 3. פסיכולוגיה התנהגותית, שימור הרגלים ומניעת חרדת שחקן (The Habit Loop & Loss Aversion)
@@ -887,7 +882,7 @@ flowchart TD
 </details>
 
 ---
-###  ניתוח רווחים משוערים וערך מוסף 
+### ניתוח רווחים משוערים וערך מוסף
 
 ---
 

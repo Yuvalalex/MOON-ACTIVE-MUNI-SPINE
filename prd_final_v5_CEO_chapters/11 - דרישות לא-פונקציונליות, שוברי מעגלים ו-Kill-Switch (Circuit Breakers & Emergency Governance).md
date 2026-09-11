@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 11 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 11 מתוך 25 -->
 
 > **שם הפרק:** דרישות לא-פונקציונליות, שוברי מעגלים ו-Kill-Switch (Circuit Breakers & Emergency Governance)
 

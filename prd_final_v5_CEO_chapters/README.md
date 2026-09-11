@@ -1,6 +1,6 @@
 # Master PRD — חלוקה לפרקים
 
-התיקייה הזו היא גרסה מפוצלת של [Master PRD המלא](../prd_finel_v5_CEO.md) עבור **Coin Master — Muni-Spins Hybrid Offline Mode**.
+התיקייה הזו היא גרסה מפוצלת של [Master PRD המלא](../Master_PRD.md) עבור **Coin Master — Muni-Spins Hybrid Offline Mode**.
 
 ![alt text](image-9.png)
 

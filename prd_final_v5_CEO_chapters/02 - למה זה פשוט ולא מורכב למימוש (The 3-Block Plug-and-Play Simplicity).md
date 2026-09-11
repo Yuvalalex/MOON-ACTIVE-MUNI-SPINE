@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 2 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 2 מתוך 25 -->
 
 > **שם הפרק:** למה זה פשוט ולא מורכב למימוש? (The 3-Block Plug-and-Play Simplicity)
 

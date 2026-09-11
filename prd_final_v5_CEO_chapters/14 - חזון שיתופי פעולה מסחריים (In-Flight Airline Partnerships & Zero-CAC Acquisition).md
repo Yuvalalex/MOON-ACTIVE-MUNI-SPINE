@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 14 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 14 מתוך 25 -->
 
 > **שם הפרק:** חזון שיתופי פעולה מסחריים (In-Flight Airline Partnerships & Zero-CAC Acquisition)
 

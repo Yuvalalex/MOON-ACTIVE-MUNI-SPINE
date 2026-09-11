@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 23 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 23 מתוך 25 -->
 
 > **שם הפרק:** חוזי API ו-Reconciliation
 

@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 18 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 18 מתוך 25 -->
 
 > **שם הפרק:** מדריך תמיכה ושירות לקוחות (Player Support & Helpdesk Playbook)  
 > **סטטוס מסמך:** Approved by C-Level / Production Ready  

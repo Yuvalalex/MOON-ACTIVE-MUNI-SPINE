@@ -1,4 +1,4 @@
-<!-- מקור: prd_finel_v5_CEO.md | פרק 4 מתוך 25 -->
+<!-- מקור: Master_PRD.md | פרק 4 מתוך 25 -->
 
 > **שם הפרק:** הגדרת הבעיה ופילוח שוק עולמי (Market Opportunity & Connectivity)
 

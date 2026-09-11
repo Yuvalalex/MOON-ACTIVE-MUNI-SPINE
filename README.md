@@ -45,26 +45,12 @@ This repository presents the comprehensive **Hybrid Offline-First Architecture &
 
 | Resource | Description | Direct Link |
 | :--- | :--- | :--- |
-| 📊 **Executive Slide Deck (App)** | Standalone interactive 12-slide presentation app with keyboard navigation, slide sorter (`O`), speaker notes (`N`), and 16:9 PDF export (`Ctrl+P`). | [presentation.html](prd_finel_v5_CEO_chapters/presentation.html) |
 | 🗂️ **25-Chapter PRD Suite** | Complete, elevated, executive-ready chapters categorized with role-based reading paths (CEO/CFO, CTO/Eng, CPO/UX, QA/SRE). | [PRD Chapters Hub](prd_finel_v5_CEO_chapters/README.md) |
-| 📜 **Master Unified PRD** | Comprehensive 150KB master specification containing full architecture, security models, and compliance. | [prd_finel_v5_CEO.md](prd_finel_v5_CEO.md) |
+| 📜 **Master Unified PRD** | Comprehensive 150KB master specification containing full architecture, security models, and compliance. | [PRD MASTER.md](prd_finel_v5_CEO.md) |
 | 🛠️ **Engineering Architecture PRD** | Technical deep-dive for infrastructure, Envoy Edge Gateways, Redis Lease Stores, and Go Replay Workers. | [Engineering_PRD.md](Engineering_PRD_Muni_Spins.md) |
 | 🎯 **The C-Level PM Pitch** | Executive pitch covering the strategic moat against Monopoly GO!, loss aversion psychology, and investment ask. | [Executive_Pitch.md](Executive_Pitch_Muni_Spins.md) |
 
 ---
-
-## 🏰 The Competitive Moat Against Monopoly GO! (Scopely)
-
-```
-┌──────────────────────────────────────────────────┐      ┌──────────────────────────────────────────────────┐
-│             Monopoly GO! (Scopely)               │      │            Coin Master (Moon Active)             │
-├──────────────────────────────────────────────────┤      ├──────────────────────────────────────────────────┤
-│ • Synchronous multiplayer board game             │      │ • Deterministic Slot Engine + Isolated Raids    │
-│ • State depends in real-time on opponents        │      │ • Offline Escrow Vault with Hash-Chain SHA-256   │
-│ • Cannot transition offline without engine rewrite│     │ • Native, seamless fit for Leased Sessions       │
-│ • Players locked out in flights & subways        │      │ • Always-on, 24/7 engagement anywhere on Earth  │
-└──────────────────────────────────────────────────┘      └──────────────────────────────────────────────────┘
-```
 
 ---
 
@@ -74,11 +60,11 @@ This repository presents the comprehensive **Hybrid Offline-First Architecture &
 %%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1E293B', 'lineColor': '#10B981'}}}%%
 flowchart LR
     subgraph Client ["Client Device (Mobile)"]
-        B1["🔐 <b>Block 1: Client Crypto Vault</b><br/>• SQLCipher AES-256<br/>• SHA-256 Hash Chain Log<br/>• Memory Footprint < 15MB RAM"]
+        B1["🔐 <b>Block 2: Client Crypto Vault</b><br/>• SQLCipher AES-256<br/>• SHA-256 Hash Chain Log<br/>• Memory Footprint < 15MB RAM"]
     end
 
     subgraph Token ["Cloud Gateway"]
-        B2["🎟️ <b>Block 2: Leased Session Budget</b><br/>• Ed25519 Token signed by KMS<br/>• Tiered Quota: 50 base / 100 VIP<br/>• Hard 12-Hour Expiration"]
+        B2["🎟️ <b>Block 1: Leased Session Budget</b><br/>• Ed25519 Token signed by KMS<br/>• Tiered Quota: 50 base / 100 VIP<br/>• Hard 12-Hour Expiration"]
     end
 
     subgraph Server ["Backend Infrastructure"]

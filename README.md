@@ -56,6 +56,76 @@ This repository presents the comprehensive **Hybrid Offline-First Architecture &
 
 ## 📐 The 3-Block Plug-and-Play Architecture
 
+
+---
+
+```mermaid
+
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Segoe UI, Assistant, sans-serif",
+    "fontSize": "16px",
+    "primaryColor": "#0f172a",
+    "primaryTextColor": "#f8fafc",
+    "primaryBorderColor": "#38bdf8",
+    "lineColor": "#38bdf8",
+    "secondaryColor": "#1e293b",
+    "tertiaryColor": "#1e293b",
+    "edgeLabelBackground": "#0f172a",
+    "nodeBorder": "#38bdf8",
+    "clusterBkg": "#0b1120",
+    "clusterBorder": "#38bdf8"
+  },
+  "flowchart": { "curve": "basis", "nodeSpacing": 30, "rankSpacing": 35, "padding": 15 },
+  "sequence": { "actorMargin": 30, "messageMargin": 30 },
+  "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
+}}%%
+flowchart LR
+
+    subgraph PlugPlay ["🧩 3 רכיבי ה-Plug-and-Play החדשים (מבודדים ובטוחים)"]
+        direction TB
+        B1["📱 <b>1. Client Network Interceptor</b><br/><span style='font-size:14px;color:#94a3b8;'>• מנוע יירוט בלקוח (~250 שורות C# ב-Unity)<br/>• ניתוב שקוף ל-SQLite מקומי בפינג איטי</span>"]
+        B2["🛡️ <b>2. Isolated Escrow Buffer</b><br/><span style='font-size:14px;color:#94a3b8;'>• טבלת חיץ מבודדת (Redis / Postgres)<br/>• צבירת נתוני אופליין באפס מגע עם ה-Core</span>"]
+        B3["⚡ <b>3. Fast-Forward Replay Validator</b><br/><span style='font-size:14px;color:#94a3b8;'>• פונקציית אימות קלה (Stateless Go Function)<br/>• בדיקת Hash-Chain בתוך פחות מ-5ms</span>"]
+
+        B1 ==>|"סנכרון בחזרת רשת"| B2
+        B2 ==>|"הרצת ולידציה אסינכרונית"| B3
+    end
+
+    subgraph Legacy ["🏛️ תשתית שרת חיה קיימת (100% שמורה וללא שינוי)"]
+        direction TB
+        
+        LiveServer["🖥️ <b>Live Game Server</b><br/><span style='font-size:14px;color:#94a3b8;'>שרתי משחק חיים (Game Core Engine)</span>"]
+        LiveLedger[("🏦 <b>Master Game Ledger</b><br/><span style='font-size:14px;color:#34d399;'>טבלאות שחקנים ומאזן מרכזי קיים</span>")]
+        
+        LiveServer ~~~ LiveLedger
+    end
+
+    B3 ==>|"אימות קריפטוגרפי מאושר בלבד"| LiveLedger
+    LiveServer ==>|"יש רשת רשת"| LiveLedger
+    LiveServer ==>|"אין רשת רשת"| B1
+
+
+    %% מסגרות חיצוניות - רקע כהה ועמוק
+    style PlugPlay fill:#090d16,stroke:#38bdf8,stroke-width:2.5px,color:#38bdf8
+    style Legacy fill:#090d16,stroke:#64748b,stroke-width:2px,stroke-dasharray: 4 4,color:#94a3b8
+
+    %% כרטיסים פנימיים כהים עם מסגרות ניאון מובחנות
+    style B1 fill:#0f172a,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style B2 fill:#0f172a,stroke:#f59e0b,stroke-width:2px,color:#f8fafc
+    style B3 fill:#0f172a,stroke:#a855f7,stroke-width:2px,color:#f8fafc
+
+    %% כרטיסי תשתית קיימת
+    style LiveServer fill:#0f172a,stroke:#475569,stroke-width:1.5px,color:#e2e8f0
+    style LiveLedger fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5
+
+```
+
+
+
+---
+
 ```mermaid
 %%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1E293B', 'lineColor': '#10B981'}}}%%
 flowchart LR

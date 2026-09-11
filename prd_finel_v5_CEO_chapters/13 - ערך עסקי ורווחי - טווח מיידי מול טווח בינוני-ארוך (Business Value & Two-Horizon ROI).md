@@ -86,8 +86,8 @@ graph LR
   - צוות ייעודי: 1 Tech Lead + 2 Client (Unity) + 1 Backend (Go) + 1 QA Automation + 1 PM (50%) + 1 Designer (50%).
   - משך פיתוח ל-MVP: 6 שבועות.
   - סך עלות פיתוח ובדיקות: **כ-$180,000**.
-* **נוסחת החזר ההשקעה הרשמית:**
-  $$\text{Payback Days} = \frac{\text{Total R\&D Investment}}{\text{Daily Incremental Net Contribution}}$$
+ֿֿ* **נוסחת החזר ההשקעה הרשמית:**
+  $$\text{Payback Days} = \frac{\text{Total R\D Investment}}{\text{Daily Incremental Net Contribution}}$$
 * **תוצאות החישוב לפי תרחישים:**
   - **בתרחיש שמרני:** החזר השקעה מלא תוך **13 ימים** מתחילת ההשקה המלאה.
   - **בתרחיש בסיס:** החזר השקעה תוך **5 ימים בלבד**.

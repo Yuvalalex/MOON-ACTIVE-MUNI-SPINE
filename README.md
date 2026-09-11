@@ -41,16 +41,6 @@ This repository presents the comprehensive **Hybrid Offline-First Architecture &
 
 ---
 
-## 🚀 Key Deliverables in this Repository
-
-| Resource | Description | Direct Link |
-| :--- | :--- | :--- |
-| 🗂️ **25-Chapter PRD Suite** | Complete, elevated, executive-ready chapters categorized with role-based reading paths (CEO/CFO, CTO/Eng, CPO/UX, QA/SRE). | [PRD Chapters Hub](prd_finel_v5_CEO_chapters/README.md) |
-| 📜 **Master Unified PRD** | Comprehensive 150KB master specification containing full architecture, security models, and compliance. | [PRD MASTER.md](prd_finel_v5_CEO.md) |
-| 🛠️ **Engineering Architecture PRD** | Technical deep-dive for infrastructure, Envoy Edge Gateways, Redis Lease Stores, and Go Replay Workers. | [Engineering_PRD.md](Engineering_PRD_Muni_Spins.md) |
-| 🎯 **The C-Level PM Pitch** | Executive pitch covering the strategic moat against Monopoly GO!, loss aversion psychology, and investment ask. | [Executive_Pitch.md](Executive_Pitch_Muni_Spins.md) |
-
----
 
 ---
 
@@ -145,6 +135,21 @@ flowchart LR
     B1 -->|"Streams Action Log on Reconnect"| B3
     B3 -->|"Commits Balanced Earnings"| Ledger[("Ledger DB")]
 ```
+
+---
+
+
+## 🚀 Key Deliverables in this Repository
+
+| Resource | Description | Direct Link |
+| :--- | :--- | :--- |
+| 🗂️ **25-Chapter PRD Suite** | Complete, elevated, executive-ready chapters categorized with role-based reading paths (CEO/CFO, CTO/Eng, CPO/UX, QA/SRE). | [PRD Chapters Hub](prd_finel_v5_CEO_chapters/README.md) |
+| 📜 **Master Unified PRD** | Comprehensive 150KB master specification containing full architecture, security models, and compliance. | [PRD MASTER.md](prd_finel_v5_CEO.md) |
+| 🛠️ **Engineering Architecture PRD** | Technical deep-dive for infrastructure, Envoy Edge Gateways, Redis Lease Stores, and Go Replay Workers. | [Engineering_PRD.md](Engineering_PRD_Muni_Spins.md) |
+| 🎯 **The C-Level PM Pitch** | Executive pitch covering the strategic moat against Monopoly GO!, loss aversion psychology, and investment ask. | [Executive_Pitch.md](Executive_Pitch_Muni_Spins.md) |
+
+---
+
 
 ---
 

@@ -191,12 +191,12 @@
   "state": { "nodeSpacing": 30, "rankSpacing": 35, "titleTopMargin": 15 }
 }}%%
 flowchart LR
-    subgraph HEADER ["🚀 <b>COIN MASTER HYBRID OFFLINE-FIRST</b>"]
+    subgraph HEADER ["🚀 COIN MASTER HYBRID OFFLINE-FIRST"]
         direction LR
-        C1["💰 <b>החזר השקעה (ROI)</b><br/>━━━━━━━━━━━━━━━<br/><span style='font-size:18px;color:#38bdf8;'>🎯 <b>יעד החזר:</b> עד 90 יום</span><br/><span style='font-size:18px;color:#94a3b8;'>⏱️ <b>פיתוח:</b> MVP תוך 4-6 שבועות</span>"]
-        C2["⚙️ <b>פשטות המימוש</b><br/>━━━━━━━━━━━━━━━<br/><span style='font-size:18px;color:#38bdf8;'>🧱 <b>3 רכיבי MVP</b> מדורגים</span><br/><span style='font-size:18px;color:#94a3b8;'>🔒 <b>שינויי שרת</b> מוגבלים</span>"]
-        C3["⚡ <b>אימפקט מיידי (Q1)</b><br/>━━━━━━━━━━━━━━━<br/><span style='font-size:18px;color:#38bdf8;'>📉 <b>יעד:</b> ירידת נטישה מדידה</span><br/><span style='font-size:18px;color:#94a3b8;'>🧪 <b>נמדד בניסוי מבוקר</b></span>"]
-        C4["📈 <b>אופק ארוך (+36M$)</b><br/>━━━━━━━━━━━━━━━<br/><span style='font-size:18px;color:#38bdf8;'>📊 <b>תרחיש יעד</b></span><br/><span style='font-size:18px;color:#94a3b8;'>📑 <b>מחייב Case</b> נפרד</span>"]
+        C1["💰 החזר השקעה (ROI)\nיעד החזר: עד 90 יום\nפיתוח: MVP תוך 4-6 שבועות"]
+        C2["⚙️ פשטות המימוש\n3 רכיבי MVP מדורגים\nשינויי שרת מוגבלים"]
+        C3["⚡ אימפקט מיידי (Q1)\nיעד: ירידת נטישה מדידה\nנמדד בניסוי מבוקר"]
+        C4["📈 אופק ארוך (+36M$)\nתרחיש יעד\nמחייב Case נפרד"]
 
         %% כפיית סדר אופקי רציף
         C1 ~~~ C2 ~~~ C3 ~~~ C4
